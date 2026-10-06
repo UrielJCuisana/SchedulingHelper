@@ -1,2 +1,2 @@
 # Lifeguard Timesheet Maker — GitHub Pages
-[link](guardapp.cuisana.net)
+[link](http://www.guardapp.cuisana.net)
