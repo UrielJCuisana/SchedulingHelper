@@ -13,69 +13,22 @@
 @media(max-width:900px){.sidebar{width:190px}.brand{padding:19px 12px 25px}.brand strong{font-size:14px}.brand small{font-size:8px}.topbar{height:63px}.overview-grid{grid-template-columns:1fr}.kpi-grid{grid-template-columns:repeat(2,1fr)}.print-layout{grid-template-columns:1fr}.paper-preview{min-height:280px}.sidebar-bottom{padding:8px}.sidebar-bottom small{display:none}}
 @media(max-width:650px){.sidebar{position:fixed;left:-255px;width:240px;top:0;bottom:0;transition:left .2s;box-shadow:8px 0 30px #19395210}.sidebar.mobile-open{left:0}.menu-btn{display:grid}.topbar{padding:0 14px;gap:5px}.top-actions{gap:5px}.top-actions .local-badge{display:none}.top-actions .btn span{display:none}.main-inner{padding:22px 13px}.welcome-view{margin-top:32px}.feature-strip{gap:10px}.feature-strip small{font-size:9px}.page-heading{align-items:flex-start;flex-direction:column}.page-heading h1{font-size:26px}.role-bar{padding:16px}.role-bar-top{align-items:flex-start}.role-filters{gap:7px}.role-checkbox{font-size:11px;padding:7px}.kpi-grid{gap:9px}.metric-label{font-size:10px}.metric-number{font-size:24px}.inspector-panel,.snapshot-panel,.today-panel,.schedule-panel,.settings-panel,.print-preview-panel,.batch-panel,.output-panel{padding:15px}.panel-head{gap:10px}.schedule-head{align-items:flex-start;flex-direction:column}.schedule-toolbar{width:100%;justify-content:space-between}.schedule-subbar{flex-direction:column;align-items:flex-start}.search-wrap{width:100%;max-width:100%}.batch-days{grid-template-columns:repeat(2,minmax(0,1fr))}.modal-actions{flex-wrap:wrap}.output-row{align-items:flex-start;flex-direction:column}.feature-strip strong{font-size:10px}}
 
+/* v6.1 coverage snapshot: one stacked column per hour, open capacity on top */
+.coverage-bars{width:58%;max-width:29px;height:100%;display:flex;flex-direction:column-reverse;justify-content:flex-start;align-items:stretch;gap:0}
+.coverage-segment{width:100%;min-height:0;flex:none}
+.coverage-segment.guard{background:#4a91bf}
+.coverage-segment.instructor{background:#25a79b}
+.coverage-segment.supervisor{background:#977bc0}
+.coverage-segment.open{background:#e9b664}
+.coverage-segment:last-child{border-radius:3px 3px 0 0}
+.legend-square.guard{background:#4a91bf}
+.legend-square.instructor{background:#25a79b}
+.legend-square.supervisor{background:#977bc0}
+.legend-square.open{background:#e9b664}
+.mini-legend{flex-wrap:wrap;gap:10px 15px}
+
 </style>
-
-</head>
-<body>
-<div class="app-shell">
-  <aside class="sidebar" id="sidebar">
-    <div class="brand"><div class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M5 18c5-6 10 6 15 0s10 6 15 0M5 26c5-6 10 6 15 0s10 6 15 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div><div><strong>Aquatics Studio</strong><small>SCHEDULE WORKSPACE</small></div></div>
-    <div class="side-scroll">
-      <div class="side-label">YOUR WORKSPACE</div>
-      <button class="side-link selected" data-nav="overview" type="button"><span class="nav-glyph">◫</span> Overview</button>
-      <button class="side-link" data-nav="schedule" type="button"><span class="nav-glyph">▤</span> Schedule viewer</button>
-      <button class="side-link" data-nav="print" type="button"><span class="nav-glyph">▣</span> Print & export</button>
-      <div class="side-divider"></div>
-      <div class="side-label side-label-row"><span>IMPORT</span><span class="tiny-dot" aria-hidden="true"></span></div>
-      <input type="file" id="fileInput" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
-      <button class="import-tile" type="button" id="importSide"><span class="tile-icon">↥</span><strong id="importTileTitle">Import Excel schedule</strong><small id="importTileInfo">Choose a Life Time .xlsx export</small></button>
-      <div class="side-label side-label-row date-label"><span>DATES</span><span id="dayCount">—</span></div>
-      <div id="dateList" class="date-list"><span class="side-empty">Your schedule dates will appear here.</span></div>
-    </div>
-    <div class="sidebar-bottom"><div class="privacy-icon">✓</div><div><strong>Private by design</strong><small>Schedules stay in this browser</small></div></div>
-  </aside>
-
-  <main class="main">
-    <header class="topbar">
-      <div class="breadcrumb"><button id="mobileMenu" class="icon-btn menu-btn" type="button" aria-label="Toggle menu">☰</button><span>Aquatics</span><span class="slash">/</span><strong id="breadcrumbLabel">Overview</strong></div>
-      <div class="top-actions"><span class="local-badge"><span class="green-dot"></span> Local workspace</span><button class="btn btn-light btn-sm" type="button" id="uploadTop">↥ <span>New import</span></button><button class="btn btn-primary btn-sm" type="button" id="printTop">▣ <span>Prepare PDFs</span></button></div>
-    </header>
-
-    <div class="main-inner" id="mainInner">
-      <div id="welcome" class="welcome-view">
-        <div class="welcome-badge">✦ YOUR DAILY AQUATICS COMMAND CENTER</div>
-        <h1>Smarter schedules.<br><span>Smoother shifts.</span></h1>
-        <p>Go from Life Time's Excel export to a clear, interactive staffing timeline and beautifully organized printable timesheets.</p>
-        <div id="dropZone" class="upload-area" tabindex="0" role="button" aria-label="Choose an Excel schedule">
-          <div class="upload-illustration"><span>▤</span><span>↓</span><span>◷</span></div>
-          <strong>Drop your Excel schedule here</strong><span>or <u>browse your files</u> to select an .xlsx export</span>
-          <small>No account. No uploads to a server. Just your schedule.</small>
-        </div>
-        <div class="feature-strip"><div><span class="feature-icon">◷</span><strong>Live timeline</strong><small>See who's in and out, instantly</small></div><div><span class="feature-icon">◉</span><strong>Role filters</strong><small>Guards, instructors, supervisors</small></div><div><span class="feature-icon">▣</span><strong>Print-ready</strong><small>Practical, writable PDF sheets</small></div></div>
-      </div>
-
-      <section id="workspace" class="workspace hidden">
-        <div class="page-heading"><div><div class="eyebrow" id="pageEyebrow">YOUR DAILY OVERVIEW</div><h1 id="pageTitle">Daily overview</h1><p id="pageSubtitle">Explore your shifts at a glance.</p></div><div class="heading-controls"><button type="button" id="prevDay" class="icon-btn" aria-label="Previous day">‹</button><select id="daySelect" aria-label="Select schedule date"></select><button type="button" id="nextDay" class="icon-btn" aria-label="Next day">›</button></div></div>
-        <div id="notice" role="status" aria-live="polite" class="notice hidden"></div>
-        <section class="role-bar panel"><div class="role-bar-top"><div><strong>Show on schedule</strong><span>Toggle roles without changing the imported file.</span></div><button class="text-btn" id="roleAll" type="button">Show all roles</button></div><div class="role-filters"><label class="role-checkbox guard"><input type="checkbox" id="roleGuard" checked><span class="role-marker"></span> Lifeguards <span class="role-count" id="countGuard">0</span></label><label class="role-checkbox instructor"><input type="checkbox" id="roleInstructor"><span class="role-marker"></span> Swim instructors <span class="role-count" id="countInstructor">0</span></label><label class="role-checkbox supervisor"><input type="checkbox" id="roleSupervisor"><span class="role-marker"></span> Supervisors <span class="role-count" id="countSupervisor">0</span></label><label class="role-checkbox open"><input type="checkbox" id="showOpen" checked><span class="role-marker"></span> Open shifts</label></div></section>
-
-        <div id="overviewPanel" class="tab-panel">
-          <div class="kpi-grid"><div class="metric panel"><div class="metric-label">Selected shift entries <span>↗</span></div><div class="metric-number" id="metricShifts">0</div><div class="metric-foot">Across visible roles</div></div><div class="metric panel"><div class="metric-label">On duty at selected time <span>◷</span></div><div class="metric-number" id="metricOnDuty">0</div><div class="metric-foot" id="onDutyTime">At 12:00 PM</div></div><div class="metric panel"><div class="metric-label">Open shifts <span>◈</span></div><div class="metric-number" id="metricOpen">0</div><div class="metric-foot">Not counted as staffed</div></div><div class="metric panel"><div class="metric-label">Peak filled coverage <span>▥</span></div><div class="metric-number" id="metricPeak">0</div><div class="metric-foot" id="peakTime">On selected day</div></div></div>
-          <div class="overview-grid"><section class="panel inspector-panel"><div class="panel-head"><div><h2>Time explorer</h2><p>Move through the day to see who's scheduled.</p></div><span class="small-pill">LIVE VIEW</span></div><div class="inspector-clock"><strong id="exploreTime">12:00 PM</strong><span id="exploreCount">0 people on duty</span></div><input type="range" id="timeSlider" min="360" max="1320" step="5" value="720" aria-label="Time of day"><div class="time-range-labels"><span id="timeStartLabel">6:00 AM</span><span id="timeMidLabel">2:00 PM</span><span id="timeEndLabel">10:00 PM</span></div><div class="inspector-section-label">WORKING AT THIS TIME</div><div id="onDutyList" class="on-duty-list"></div></section><section class="panel snapshot-panel"><div class="panel-head"><div><h2>Coverage snapshot</h2><p>Filled shifts vs. open assignments, hour by hour.</p></div></div><div class="mini-legend"><span><i class="legend-square filled"></i> Filled</span><span><i class="legend-square unfilled"></i> Open</span></div><div id="coverageChart" class="coverage-chart"></div><div class="snapshot-foot">Coverage reflects scheduled employees, not clock-ins or breaks.</div></section></div>
-          <section class="panel today-panel"><div class="panel-head"><div><h2>Today's team</h2><p>Role-separated people and shift windows.</p></div><button type="button" class="btn btn-light btn-sm" id="openSchedule">Open schedule viewer →</button></div><div id="teamPreview"></div></section>
-        </div>
-
-        <div id="schedulePanel" class="tab-panel hidden"><section class="panel schedule-panel"><div class="panel-head schedule-head"><div><h2>Team schedule</h2><p>One shared time scale, organized by role.</p></div><div class="schedule-toolbar"><div class="segmented" role="group" aria-label="Schedule view"><button class="active" type="button" data-view="timeline">▤ Timeline</button><button type="button" data-view="table">≡ Table</button></div><button id="addShift" class="btn btn-primary btn-sm" type="button">+ Add shift</button></div></div><div class="schedule-subbar"><span id="scheduleInfo">Click any shift to inspect or edit it.</span><label class="search-wrap"><span>⌕</span><input id="searchPeople" type="search" placeholder="Find an employee..." aria-label="Find an employee"></label></div><div id="timelineView" class="timeline-wrap"><div id="timelineGrid"></div></div><div id="tableView" class="hidden"><div id="scheduleTable"></div></div><div class="schedule-footer"><span>Changes are local to this page and appear in your generated PDFs.</span><button id="resetDay" class="text-btn" type="button">Restore imported day</button></div></section></div>
-
-        <div id="printPanel" class="tab-panel hidden"><div class="print-layout"><section class="panel settings-panel"><div class="panel-head"><div><h2>Print settings</h2><p>Make the packet work for your pool deck.</p></div></div><div class="setting-group"><label for="printStart">Rotation grid starts</label><select id="printStart"></select></div><div class="setting-group"><label for="printEnd">Rotation grid ends</label><select id="printEnd"></select></div><div class="setting-group"><label for="printInterval">Time columns</label><select id="printInterval"><option value="20">Every 20 minutes</option><option value="30">Every 30 minutes</option><option value="15">Every 15 minutes</option></select></div><div class="setting-group"><label for="printNotes">Supervisor notes <small>(optional)</small></label><textarea id="printNotes" rows="3" maxlength="220" placeholder="e.g. Lap pool closes early at 7 PM"></textarea></div><div class="print-hint"><span>ⓘ</span><div>Print includes your currently enabled roles. Lifeguards get the writable rotation grid when selected; otherwise the first selected role gets the grid. Other roles have separate roster sections in the same packet. The reference page includes everyone.</div></div><button id="generateCurrent" class="btn btn-primary btn-full" type="button">▣ Generate this day's PDF</button></section><section class="panel print-preview-panel"><div class="panel-head"><div><h2>Packet preview</h2><p>Landscape · US Letter · print double-sided</p></div><span class="small-pill">PDF</span></div><div class="paper-preview"><div class="paper"><div class="paper-top"><strong>AQUATICS ROTATION SHEET</strong><span id="previewDate"></span></div><div class="fake-header"></div><div id="fakeRows" class="fake-rows"></div><div class="paper-bottom"><div class="fake-summary"></div><div class="fake-summary short"></div></div></div></div><div class="preview-footer"><span>Front: rotation grid & team roster<br>Back: shift details & visual timeline</span><span class="print-pagecount">2 pages</span></div></section></div><section class="panel batch-panel"><div class="panel-head"><div><h2>Batch export</h2><p>Generate packets for multiple days at once using these settings and role filters.</p></div><div class="actions-inline"><button type="button" class="btn btn-light btn-sm" id="batchAll">Select all</button><button type="button" class="btn btn-light btn-sm" id="batchNone">Clear</button></div></div><div class="batch-days" id="batchDays"></div><div class="batch-bottom"><span id="batchHint">0 days selected</span><button type="button" class="btn btn-primary" id="generateBatch">Generate selected PDFs</button></div></section><section class="panel output-panel hidden" id="outputPanel"><div class="panel-head"><div><h2>Your PDF files</h2><p>Ready to open, download, or save.</p></div><div class="actions-inline"><button type="button" class="btn btn-light btn-sm hidden" id="saveFolder">Save to folder</button><button type="button" class="btn btn-light btn-sm" id="downloadAll">Download all</button></div></div><div id="outputRows"></div><div id="resultMessage" class="notice hidden"></div></section></div>
-      </section>
-      <footer>Made for aquatics teams <span>·</span> No server uploads <span>·</span> v6.0 <span>·</span> GitHub Pages ready</footer>
-    </div>
-  </main>
-</div>
-<div id="toast" role="status" aria-live="polite" class="toast hidden"></div>
-<div id="modalBackdrop" class="modal-backdrop hidden"><div class="editor-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-top"><div><div class="eyebrow">SCHEDULE EDITOR</div><h2 id="modalTitle">Edit shift</h2></div><button id="closeModal" type="button" class="icon-btn" aria-label="Close editor">×</button></div><form id="shiftForm"><div class="form-field"><label for="editName">Employee name</label><input id="editName" required maxlength="90" autocomplete="off" placeholder="Employee name"></div><div class="form-field"><label for="editRole">Position</label><select id="editRole"><option value="guard">Lifeguard</option><option value="instructor">Swim instructor</option><option value="supervisor">Supervisor</option></select></div><div class="form-duo"><div class="form-field"><label for="editStart">Time in</label><input id="editStart" type="time" required></div><div class="form-field"><label for="editEnd">Time out</label><input id="editEnd" type="time" required></div></div><label class="form-checkbox"><input id="editOpen" type="checkbox"> Mark as an open shift</label><div class="modal-actions"><button id="deleteShift" class="btn btn-danger" type="button">Delete shift</button><div class="actions-inline"><button id="cancelEdit" type="button" class="btn btn-light">Cancel</button><button type="submit" class="btn btn-primary">Save changes</button></div></div></form></div></div>
-<script>
+  <script>
 /* Aquatics Studio v6 — completely client-side Excel reader and PDF writer.
    No libraries, accounts, network requests, or backend required. */
 (()=>{
@@ -132,7 +85,7 @@ window.AquaticsCore={ROLES,readWorkbook,sortShift,groupRows,coverageAt,roleCount
 })();
 
 </script>
-<script>
+  <script>
 /* Aquatics Studio v6 — interactive UI. Static GitHub Pages compatible. */
 (()=>{
 'use strict';
@@ -160,7 +113,37 @@ function renderKPIs(){const shifts=filtered(),filled=shifts.filter(s=>!s.open),o
 function roleLabel(role){return core.ROLES[role].label;}
 function renderExplorer(){const shifts=filtered(),available=shifts.filter(s=>s.start<=state.minute&&state.minute<s.end),filled=new Map(),open=[];for(const s of available){if(s.open)open.push(s);else filled.set(s.name.toLowerCase()||'unnamed:'+s.id,s);}const people=[...filled.values(),...open].sort((a,b)=>a.role.localeCompare(b.role)||a.name.localeCompare(b.name));$('exploreTime').textContent=human(state.minute);$('exploreCount').textContent=`${filled.size} on duty${open.length?' · '+open.length+' open':''}`;$('onDutyList').innerHTML=people.length?people.map(s=>`<div class="duty-person"><div class="duty-name"><span class="dot-role ${s.open?'':s.role}"></span><span>${escapeHtml(s.name||'Open shift')}${s.open?' <span class="open-label">(OPEN)</span>':''}</span></div><span class="duty-end">${s.open?'Unfilled':`Until ${human(s.end)}`}</span></div>`).join(''):'<div class="empty-note">No selected roles are scheduled at this time.</div>';
  const starts=shifts.length?Math.min(...shifts.map(s=>s.start)):360,ends=shifts.length?Math.max(...shifts.map(s=>s.end)):1320;const min=Math.max(0,Math.floor(starts/60)*60),max=Math.min(1435,Math.max(min+60,Math.ceil(ends/60)*60));$('timeSlider').min=String(min);$('timeSlider').max=String(max);if(state.minute<min||state.minute>max)state.minute=Math.max(min,Math.min(max,state.minute));$('timeSlider').value=String(state.minute);$('timeStartLabel').textContent=human(min);$('timeMidLabel').textContent=human(Math.round((min+max)/2/5)*5);$('timeEndLabel').textContent=human(max);}
-function renderCoverage(){const shifts=filtered();const start=shifts.length?Math.floor(Math.min(...shifts.map(s=>s.start))/60)*60:360,end=shifts.length?Math.ceil(Math.max(...shifts.map(s=>s.end))/60)*60:1320;const times=[];for(let t=start;t<end;t+=60)times.push(t);const data=times.map(t=>({t,...core.coverageAt(shifts,t)})),max=Math.max(1,...data.map(x=>x.filled+x.open));$('coverageChart').innerHTML=data.length?data.map((x,i)=>`<div class="coverage-col" title="${human(x.t)}: ${x.filled} filled, ${x.open} open"><div class="coverage-bars"><div class="coverage-filled" style="height:${x.filled/max*100}%"></div><div class="coverage-open" style="height:${x.open/max*100}%"></div></div>${i%2===0||data.length<8?`<span class="coverage-hour">${x.t/60%12||12}${x.t>=720?'p':'a'}</span>`:''}</div>`).join(''):'<div class="empty-note">Select a role to see coverage.</div>';}
+function renderCoverage(){
+ const shifts=filtered();
+ const chart=$('coverageChart');
+ if(!shifts.length){chart.innerHTML='<div class="empty-note">Select a role to see coverage.</div>';return;}
+ const start=Math.floor(Math.min(...shifts.map(s=>s.start))/60)*60;
+ const end=Math.ceil(Math.max(...shifts.map(s=>s.end))/60)*60;
+ const times=[];for(let t=start;t<end;t+=60)times.push(t);
+ const data=times.map(t=>{
+  const active=shifts.filter(s=>s.start<=t&&t<s.end);
+  const counts={guard:0,instructor:0,supervisor:0,open:0};
+  for(const role of ['guard','instructor','supervisor']){
+   const names=new Set();
+   for(const shift of active){
+    if(shift.role!==role)continue;
+    if(shift.open){counts.open++;continue;}
+    names.add((shift.name||'').trim().toLowerCase()||'unnamed:'+shift.id);
+   }
+   counts[role]=names.size;
+  }
+  return{t,...counts};
+ });
+ const max=Math.max(1,...data.map(x=>x.guard+x.instructor+x.supervisor+x.open));
+ chart.innerHTML=data.map((x,i)=>{
+  const total=x.guard+x.instructor+x.supervisor+x.open;
+  const tip=`${human(x.t)}: ${x.guard} lifeguards, ${x.instructor} instructors, ${x.supervisor} supervisors, ${x.open} open`;
+  const segments=[['guard',x.guard],['instructor',x.instructor],['supervisor',x.supervisor],['open',x.open]]
+   .filter(([,count])=>count>0).map(([role,count])=>`<div class="coverage-segment ${role}" style="height:${count/max*100}%" aria-hidden="true"></div>`).join('');
+  return `<div class="coverage-col" title="${escapeHtml(tip)}" aria-label="${escapeHtml(tip)}"><div class="coverage-bars">${segments}</div>${i%2===0||data.length<8?`<span class="coverage-hour">${x.t/60%12||12}${x.t>=720?'p':'a'}</span>`:''}</div>`;
+ }).join('');
+}
+
 function groupByRole(shifts){return ['guard','instructor','supervisor'].filter(r=>state.roles.includes(r)).map(role=>({role,rows:core.groupRows(shifts,role)}));}
 function renderTeamPreview(){const groups=groupByRole(filtered());$('teamPreview').innerHTML=groups.length?groups.map(g=>`<div class="team-role ${g.role}"><div class="team-role-top"><span class="team-title"><i></i>${escapeHtml(roleLabel(g.role).toUpperCase())}</span><span>${g.rows.length} entries</span></div>${g.rows.length?g.rows.slice(0,9).map(row=>`<div class="team-person"><strong>${escapeHtml(row.name||'Open shift')}${row.open?' <span class="open-label">(OPEN)</span>':''}</strong><small>${row.sources.map(s=>human(s.start)+'–'+human(s.end)).join(', ')}</small></div>`).join('')+(g.rows.length>9?`<div class="empty-note">+ ${g.rows.length-9} more in schedule viewer</div>`:''):'<div class="empty-note">No shifts for this role on this date.</div>'}</div>`).join(''):'<div class="empty-note">Enable a role to display team members.</div>';}
 function renderAll(){if(!state.schedule)return;updateRoleWidgets();renderExplorer();renderKPIs();renderCoverage();renderTeamPreview();if(state.view==='schedule')renderSchedule();if(state.view==='print')renderPrintPanel();}
@@ -188,5 +171,65 @@ attach();
 })();
 
 </script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M5 18c5-6 10 6 15 0s10 6 15 0M5 26c5-6 10 6 15 0s10 6 15 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div><div><strong>Aquatics Studio</strong><small>SCHEDULE WORKSPACE</small></div></div>
+    <div class="side-scroll">
+      <div class="side-label">YOUR WORKSPACE</div>
+      <button class="side-link selected" data-nav="overview" type="button"><span class="nav-glyph">◫</span> Overview</button>
+      <button class="side-link" data-nav="schedule" type="button"><span class="nav-glyph">▤</span> Schedule viewer</button>
+      <button class="side-link" data-nav="print" type="button"><span class="nav-glyph">▣</span> Print & export</button>
+      <div class="side-divider"></div>
+      <div class="side-label side-label-row"><span>IMPORT</span><span class="tiny-dot" aria-hidden="true"></span></div>
+      <input type="file" id="fileInput" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
+      <button class="import-tile" type="button" id="importSide"><span class="tile-icon">↥</span><strong id="importTileTitle">Import Excel schedule</strong><small id="importTileInfo">Choose a Life Time .xlsx export</small></button>
+      <div class="side-label side-label-row date-label"><span>DATES</span><span id="dayCount">—</span></div>
+      <div id="dateList" class="date-list"><span class="side-empty">Your schedule dates will appear here.</span></div>
+    </div>
+    <div class="sidebar-bottom"><div class="privacy-icon">✓</div><div><strong>Private by design</strong><small>Schedules stay in this browser</small></div></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="breadcrumb"><button id="mobileMenu" class="icon-btn menu-btn" type="button" aria-label="Toggle menu">☰</button><span>Aquatics</span><span class="slash">/</span><strong id="breadcrumbLabel">Overview</strong></div>
+      <div class="top-actions"><span class="local-badge"><span class="green-dot"></span> Local workspace</span><button class="btn btn-light btn-sm" type="button" id="uploadTop">↥ <span>New import</span></button><button class="btn btn-primary btn-sm" type="button" id="printTop">▣ <span>Prepare PDFs</span></button></div>
+    </header>
+
+    <div class="main-inner" id="mainInner">
+      <div id="welcome" class="welcome-view">
+        <div class="welcome-badge">✦ YOUR DAILY AQUATICS COMMAND CENTER</div>
+        <h1>Smarter schedules.<br><span>Smoother shifts.</span></h1>
+        <p>Go from Life Time's Excel export to a clear, interactive staffing timeline and beautifully organized printable timesheets.</p>
+        <div id="dropZone" class="upload-area" tabindex="0" role="button" aria-label="Choose an Excel schedule">
+          <div class="upload-illustration"><span>▤</span><span>↓</span><span>◷</span></div>
+          <strong>Drop your Excel schedule here</strong><span>or <u>browse your files</u> to select an .xlsx export</span>
+          <small>No account. No uploads to a server. Just your schedule.</small>
+        </div>
+        <div class="feature-strip"><div><span class="feature-icon">◷</span><strong>Live timeline</strong><small>See who's in and out, instantly</small></div><div><span class="feature-icon">◉</span><strong>Role filters</strong><small>Guards, instructors, supervisors</small></div><div><span class="feature-icon">▣</span><strong>Print-ready</strong><small>Practical, writable PDF sheets</small></div></div>
+      </div>
+
+      <section id="workspace" class="workspace hidden">
+        <div class="page-heading"><div><div class="eyebrow" id="pageEyebrow">YOUR DAILY OVERVIEW</div><h1 id="pageTitle">Daily overview</h1><p id="pageSubtitle">Explore your shifts at a glance.</p></div><div class="heading-controls"><button type="button" id="prevDay" class="icon-btn" aria-label="Previous day">‹</button><select id="daySelect" aria-label="Select schedule date"></select><button type="button" id="nextDay" class="icon-btn" aria-label="Next day">›</button></div></div>
+        <div id="notice" role="status" aria-live="polite" class="notice hidden"></div>
+        <section class="role-bar panel"><div class="role-bar-top"><div><strong>Show on schedule</strong><span>Toggle roles without changing the imported file.</span></div><button class="text-btn" id="roleAll" type="button">Show all roles</button></div><div class="role-filters"><label class="role-checkbox guard"><input type="checkbox" id="roleGuard" checked><span class="role-marker"></span> Lifeguards <span class="role-count" id="countGuard">0</span></label><label class="role-checkbox instructor"><input type="checkbox" id="roleInstructor"><span class="role-marker"></span> Swim instructors <span class="role-count" id="countInstructor">0</span></label><label class="role-checkbox supervisor"><input type="checkbox" id="roleSupervisor"><span class="role-marker"></span> Supervisors <span class="role-count" id="countSupervisor">0</span></label><label class="role-checkbox open"><input type="checkbox" id="showOpen" checked><span class="role-marker"></span> Open shifts</label></div></section>
+
+        <div id="overviewPanel" class="tab-panel">
+          <div class="kpi-grid"><div class="metric panel"><div class="metric-label">Selected shift entries <span>↗</span></div><div class="metric-number" id="metricShifts">0</div><div class="metric-foot">Across visible roles</div></div><div class="metric panel"><div class="metric-label">On duty at selected time <span>◷</span></div><div class="metric-number" id="metricOnDuty">0</div><div class="metric-foot" id="onDutyTime">At 12:00 PM</div></div><div class="metric panel"><div class="metric-label">Open shifts <span>◈</span></div><div class="metric-number" id="metricOpen">0</div><div class="metric-foot">Not counted as staffed</div></div><div class="metric panel"><div class="metric-label">Peak filled coverage <span>▥</span></div><div class="metric-number" id="metricPeak">0</div><div class="metric-foot" id="peakTime">On selected day</div></div></div>
+          <div class="overview-grid"><section class="panel inspector-panel"><div class="panel-head"><div><h2>Time explorer</h2><p>Move through the day to see who's scheduled.</p></div><span class="small-pill">LIVE VIEW</span></div><div class="inspector-clock"><strong id="exploreTime">12:00 PM</strong><span id="exploreCount">0 people on duty</span></div><input type="range" id="timeSlider" min="360" max="1320" step="5" value="720" aria-label="Time of day"><div class="time-range-labels"><span id="timeStartLabel">6:00 AM</span><span id="timeMidLabel">2:00 PM</span><span id="timeEndLabel">10:00 PM</span></div><div class="inspector-section-label">WORKING AT THIS TIME</div><div id="onDutyList" class="on-duty-list"></div></section><section class="panel snapshot-panel"><div class="panel-head"><div><h2>Coverage snapshot</h2><p>Scheduled coverage by role, hour by hour.</p></div></div><div class="mini-legend"><span><i class="legend-square guard"></i> Lifeguards</span><span><i class="legend-square instructor"></i> Instructors</span><span><i class="legend-square supervisor"></i> Supervisors</span><span><i class="legend-square open"></i> Open</span></div><div id="coverageChart" class="coverage-chart"></div><div class="snapshot-foot">Coverage reflects scheduled employees, not clock-ins or breaks.</div></section></div>
+          <section class="panel today-panel"><div class="panel-head"><div><h2>Today's team</h2><p>Role-separated people and shift windows.</p></div><button type="button" class="btn btn-light btn-sm" id="openSchedule">Open schedule viewer →</button></div><div id="teamPreview"></div></section>
+        </div>
+
+        <div id="schedulePanel" class="tab-panel hidden"><section class="panel schedule-panel"><div class="panel-head schedule-head"><div><h2>Team schedule</h2><p>One shared time scale, organized by role.</p></div><div class="schedule-toolbar"><div class="segmented" role="group" aria-label="Schedule view"><button class="active" type="button" data-view="timeline">▤ Timeline</button><button type="button" data-view="table">≡ Table</button></div><button id="addShift" class="btn btn-primary btn-sm" type="button">+ Add shift</button></div></div><div class="schedule-subbar"><span id="scheduleInfo">Click any shift to inspect or edit it.</span><label class="search-wrap"><span>⌕</span><input id="searchPeople" type="search" placeholder="Find an employee..." aria-label="Find an employee"></label></div><div id="timelineView" class="timeline-wrap"><div id="timelineGrid"></div></div><div id="tableView" class="hidden"><div id="scheduleTable"></div></div><div class="schedule-footer"><span>Changes are local to this page and appear in your generated PDFs.</span><button id="resetDay" class="text-btn" type="button">Restore imported day</button></div></section></div>
+
+        <div id="printPanel" class="tab-panel hidden"><div class="print-layout"><section class="panel settings-panel"><div class="panel-head"><div><h2>Print settings</h2><p>Make the packet work for your pool deck.</p></div></div><div class="setting-group"><label for="printStart">Rotation grid starts</label><select id="printStart"></select></div><div class="setting-group"><label for="printEnd">Rotation grid ends</label><select id="printEnd"></select></div><div class="setting-group"><label for="printInterval">Time columns</label><select id="printInterval"><option value="20">Every 20 minutes</option><option value="30">Every 30 minutes</option><option value="15">Every 15 minutes</option></select></div><div class="setting-group"><label for="printNotes">Supervisor notes <small>(optional)</small></label><textarea id="printNotes" rows="3" maxlength="220" placeholder="e.g. Lap pool closes early at 7 PM"></textarea></div><div class="print-hint"><span>ⓘ</span><div>Print includes your currently enabled roles. Lifeguards get the writable rotation grid when selected; otherwise the first selected role gets the grid. Other roles have separate roster sections in the same packet. The reference page includes everyone.</div></div><button id="generateCurrent" class="btn btn-primary btn-full" type="button">▣ Generate this day's PDF</button></section><section class="panel print-preview-panel"><div class="panel-head"><div><h2>Packet preview</h2><p>Landscape · US Letter · print double-sided</p></div><span class="small-pill">PDF</span></div><div class="paper-preview"><div class="paper"><div class="paper-top"><strong>AQUATICS ROTATION SHEET</strong><span id="previewDate"></span></div><div class="fake-header"></div><div id="fakeRows" class="fake-rows"></div><div class="paper-bottom"><div class="fake-summary"></div><div class="fake-summary short"></div></div></div></div><div class="preview-footer"><span>Front: rotation grid & team roster<br>Back: shift details & visual timeline</span><span class="print-pagecount">2 pages</span></div></section></div><section class="panel batch-panel"><div class="panel-head"><div><h2>Batch export</h2><p>Generate packets for multiple days at once using these settings and role filters.</p></div><div class="actions-inline"><button type="button" class="btn btn-light btn-sm" id="batchAll">Select all</button><button type="button" class="btn btn-light btn-sm" id="batchNone">Clear</button></div></div><div class="batch-days" id="batchDays"></div><div class="batch-bottom"><span id="batchHint">0 days selected</span><button type="button" class="btn btn-primary" id="generateBatch">Generate selected PDFs</button></div></section><section class="panel output-panel hidden" id="outputPanel"><div class="panel-head"><div><h2>Your PDF files</h2><p>Ready to open, download, or save.</p></div><div class="actions-inline"><button type="button" class="btn btn-light btn-sm hidden" id="saveFolder">Save to folder</button><button type="button" class="btn btn-light btn-sm" id="downloadAll">Download all</button></div></div><div id="outputRows"></div><div id="resultMessage" class="notice hidden"></div></section></div>
+      </section>
+      <footer>Made for aquatics teams <span>·</span> No server uploads <span>·</span> v6.0 <span>·</span> GitHub Pages ready</footer>
+    </div>
+  </main>
+</div>
+<div id="toast" role="status" aria-live="polite" class="toast hidden"></div>
+<div id="modalBackdrop" class="modal-backdrop hidden"><div class="editor-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-top"><div><div class="eyebrow">SCHEDULE EDITOR</div><h2 id="modalTitle">Edit shift</h2></div><button id="closeModal" type="button" class="icon-btn" aria-label="Close editor">×</button></div><form id="shiftForm"><div class="form-field"><label for="editName">Employee name</label><input id="editName" required maxlength="90" autocomplete="off" placeholder="Employee name"></div><div class="form-field"><label for="editRole">Position</label><select id="editRole"><option value="guard">Lifeguard</option><option value="instructor">Swim instructor</option><option value="supervisor">Supervisor</option></select></div><div class="form-duo"><div class="form-field"><label for="editStart">Time in</label><input id="editStart" type="time" required></div><div class="form-field"><label for="editEnd">Time out</label><input id="editEnd" type="time" required></div></div><label class="form-checkbox"><input id="editOpen" type="checkbox"> Mark as an open shift</label><div class="modal-actions"><button id="deleteShift" class="btn btn-danger" type="button">Delete shift</button><div class="actions-inline"><button id="cancelEdit" type="button" class="btn btn-light">Cancel</button><button type="submit" class="btn btn-primary">Save changes</button></div></div></form></div></div>
 </body>
 </html>
