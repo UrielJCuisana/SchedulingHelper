@@ -195,6 +195,7 @@ if (document.readyState === 'loading') {
       <button class="side-link selected" data-nav="overview" type="button"><span class="nav-glyph">◫</span> Overview</button>
       <button class="side-link" data-nav="schedule" type="button"><span class="nav-glyph">▤</span> Schedule viewer</button>
       <button class="side-link" data-nav="print" type="button"><span class="nav-glyph">▣</span> Print & export</button>
+      <a href="./lesson-coverage.html" class="side-link"><span class="nav-glyph">≈</span> Lesson coverage ↗</a>
       <div class="side-divider"></div>
       <div class="side-label side-label-row"><span>IMPORT</span><span class="tiny-dot" aria-hidden="true"></span></div>
       <input type="file" id="fileInput" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden>
@@ -208,7 +209,7 @@ if (document.readyState === 'loading') {
   <main class="main">
     <header class="topbar">
       <div class="breadcrumb"><button id="mobileMenu" class="icon-btn menu-btn" type="button" aria-label="Toggle menu">☰</button><span>Aquatics</span><span class="slash">/</span><strong id="breadcrumbLabel">Overview</strong></div>
-      <div class="top-actions"><span class="local-badge"><span class="green-dot"></span> Local workspace</span><button class="btn btn-light btn-sm" type="button" id="uploadTop">↥ <span>New import</span></button><button class="btn btn-primary btn-sm" type="button" id="printTop">▣ <span>Prepare PDFs</span></button></div>
+      <div class="top-actions"><a href="./lesson-coverage.html" class="btn btn-light btn-sm">≈ <span>Lesson coverage</span></a><span class="local-badge"><span class="green-dot"></span> Local workspace</span><button class="btn btn-light btn-sm" type="button" id="uploadTop">↥ <span>New import</span></button><button class="btn btn-primary btn-sm" type="button" id="printTop">▣ <span>Prepare PDFs</span></button></div>
     </header>
 
     <div class="main-inner" id="mainInner">
