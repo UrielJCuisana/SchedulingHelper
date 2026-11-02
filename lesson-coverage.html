@@ -1,157 +1,1106 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lesson Coverage · Aquatics Studio</title>
-<meta name="description" content="A local-only PIVVIT roster viewer and lesson coverage planning assistant.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Plan swim lesson coverage from a saved PIVVIT roster. Everything stays in your browser.">
+<title>Lesson coverage · Aquatics Studio</title>
+<link rel="stylesheet" href="./studio.css?v=1">
 <style>
-:root{color-scheme:light;--navy:#173e5e;--blue:#3c8cb9;--teal:#159e94;--ink:#203548;--muted:#8294a5;--line:#e1eaf0;--bg:#f6f8fb;--soft:#edf5fb;--shadow:0 5px 25px rgba(29,56,80,.035);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:13px;line-height:1.5}h1,h2,h3,p{margin:0}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #a6d4ea;outline-offset:2px}.hidden{display:none!important}.layout{display:flex;min-height:100vh}.sidebar{width:242px;flex:none;background:white;border-right:1px solid var(--line);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}.brand{padding:26px 19px 33px;display:flex;align-items:center;gap:11px;text-decoration:none}.brandmark{height:40px;width:40px;border-radius:11px;background:var(--navy);color:white;display:grid;place-items:center;font-size:25px}.brand strong{display:block;font-size:16px;letter-spacing:-.4px;color:var(--navy)}.brand small{display:block;font-size:9px;letter-spacing:1.3px;font-weight:800;color:#9aaabb}.side-inner{flex:1;overflow:auto;padding:0 12px}.side-label{color:#9aa9b8;letter-spacing:1.3px;font-size:10px;font-weight:800;margin:8px 11px 12px}.side-link{display:flex;width:100%;border:0;background:transparent;align-items:center;gap:11px;text-decoration:none;color:#62778a;padding:12px;border-radius:10px;font-size:13px;font-weight:650;text-align:left}.side-link:hover{background:#f4f9fc}.side-link.active{background:#e9f3fb;color:#236995}.nav-symbol{font-size:20px;width:20px;text-align:center;line-height:1}.side-divider{height:1px;background:var(--line);margin:23px 10px}.sidebar-upload{width:100%;padding:15px;border:1px dashed #b7ccdb;border-radius:12px;background:#f8fbfe;text-align:left;color:#356488;margin-bottom:20px}.sidebar-upload strong,.sidebar-upload small{display:block}.sidebar-upload strong{margin-top:6px}.sidebar-upload small{color:#8a9bab;font-size:11px}.private-note{margin:12px;padding:12px;border-radius:11px;background:#f2f9f5;border:1px solid #e1ede5;color:#3d7859;font-size:11px;font-weight:700}.main{min-width:0;flex:1}.topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);padding:0 33px;display:flex;align-items:center;justify-content:space-between;gap:12px}.breadcrumb{color:#a0acb8}.breadcrumb strong{color:#36546d}.topbar-right{display:flex;align-items:center;gap:10px}.local-status{font-size:11px;color:#528b71}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;gap:6px;padding:9px 14px;border-radius:9px;font-size:12px;font-weight:750;border:1px solid transparent;white-space:nowrap}.btn-primary{background:#205175;color:#fff}.btn-primary:hover{background:#15405d}.btn-light{background:white;color:#42647d;border-color:#dbe5ed}.btn-light:hover{background:#f5f9fc}.btn-teal{background:#168e85;color:#fff}.btn-teal:hover{background:#0d746d}.btn-sm{padding:8px 11px}.page{padding:32px 34px 55px;max-width:1540px;margin:auto}.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:24px}.eyebrow{color:#6c9ec0;font-size:10px;font-weight:850;letter-spacing:1.3px;margin-bottom:5px}.heading h1{color:var(--navy);font-size:31px;letter-spacing:-1px}.heading p{margin-top:6px;color:#8595a4;font-size:12px}.panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow)}.panel-pad{padding:21px}.panel h2{color:#264962;font-size:16px;letter-spacing:-.25px}.sub{color:#91a2b0;font-size:11px;margin-top:4px}.import-hero{max-width:800px;margin:38px auto 0;text-align:center}.import-hero h1{font-size:clamp(32px,4.5vw,55px);letter-spacing:-2px;line-height:1.12;color:var(--navy)}.import-hero h1 em{color:#278f96;font-style:normal}.import-hero p{max-width:600px;margin:17px auto 25px;color:#71889d;font-size:14px;line-height:1.7}.drop{max-width:615px;margin:0 auto;padding:35px 20px;border:2px dashed #b6cedd;background:#fff;border-radius:16px;cursor:pointer}.drop:hover,.drop.drag{background:#f4fbff;border-color:#4b9ac2}.drop-icon{font-size:35px;color:#3d8cba}.drop strong,.drop span,.drop small{display:block}.drop strong{font-size:16px;margin:6px 0;color:#31516b}.drop span{color:#718da0}.drop u{color:#1879a8;font-weight:700}.drop small{color:#a2afbc;margin-top:15px}.privacy{font-size:11px;color:#8aa0ac;margin-top:22px}.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:700px;margin:32px auto}.feature-grid>div{background:#fff;border:1px solid var(--line);border-radius:11px;padding:14px;color:#5f7a8f;text-align:left}.feature-grid b{display:block;color:#385b72;margin-top:4px}.feature-grid span{font-size:10px;color:#97a9b7}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;justify-content:space-between;margin-bottom:18px}.toolbar-right{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.field{background:white;border:1px solid #dce7ef;border-radius:9px;padding:10px 12px;color:#42637b;min-width:160px;max-width:100%}.field-inline{display:flex;align-items:center;gap:8px}.field-inline label{font-size:11px;color:#748b9b;font-weight:700}.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}.kpi{padding:18px}.kpi-label{font-size:11px;color:#8699a8}.kpi-value{font-size:32px;font-weight:800;letter-spacing:-1px;color:#244b68;margin:7px 0 2px}.kpi-note{font-size:10px;color:#9fb0bc}.pill{display:inline-flex;align-items:center;border:1px solid #d8e8f2;border-radius:99px;padding:3px 8px;background:#f1f8fc;color:#407aa1;font-weight:750;font-size:10px}.pill.success{background:#eef8f2;border-color:#cfebda;color:#2b885e}.pill.warn{background:#fff8e9;border-color:#f6e5c5;color:#a87821}.pill.danger{background:#fdf0ee;border-color:#f2d3ce;color:#ab5a4b}.section-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap}.section-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.view-tabs{display:flex;gap:3px;background:#f3f7fa;border-radius:9px;padding:4px}.view-tab{border:0;background:transparent;color:#7891a4;padding:6px 10px;border-radius:7px;font-weight:750;font-size:11px}.view-tab.active{background:#fff;color:#2c678e;box-shadow:0 2px 5px #193d5717}.search{width:190px;min-width:100px}.schedule-panel{padding:20px;margin-top:17px}.notice{background:#f0f7fc;border:1px solid #daebf6;padding:12px 14px;border-radius:10px;color:#537d99;font-size:11px;margin-bottom:15px}.notice.warn{background:#fff8ee;border-color:#f4e4ca;color:#906b35}.notice.danger{background:#fff1ee;border-color:#f0d4cf;color:#a45a4e}.timeline-wrap{overflow:auto;border:1px solid #e6edf2;border-radius:10px}.timeline{min-width:820px}.timeline-header,.timeline-row{display:grid;grid-template-columns:195px 1fr}.timeline-header{background:#f8fbfd;border-bottom:1px solid #e3ebf2}.timeline-name-header{padding:12px;font-size:10px;font-weight:850;color:#899faf;border-right:1px solid #e6ecf2}.timeline-track-header{position:relative;height:39px}.hour-tick{position:absolute;top:13px;transform:translateX(-50%);font-size:10px;color:#8ca0b2;white-space:nowrap}.hour-tick.last{transform:translateX(-100%)}.timeline-person{padding:8px 12px;border-right:1px solid #e6edf2;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#4f6b7e;font-weight:650}.timeline-row{height:45px;border-bottom:1px solid #eef2f6}.timeline-row:last-child{border-bottom:0}.timeline-body{position:relative;background:repeating-linear-gradient(to right,#fff 0,#fff calc(var(--step) - 1px),#edf2f6 calc(var(--step) - 1px),#edf2f6 var(--step))}.timeline-lesson{position:absolute;top:9px;height:27px;background:#279e98;border:0;border-radius:5px;padding:3px 5px;color:white;font-size:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:left;min-width:2px}.timeline-lesson:hover{background:#147e79}.timeline-lesson.canceled{background:#aeb8c2;color:#324a59}.timeline-lesson.empty{background:#b7d7d4;color:#30635e}.timeline-lesson.absent{background:#d9a255;color:#523815}.count-bubble{display:inline-flex;justify-content:center;align-items:center;background:#ebf5f9;color:#39769a;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:750}.table-wrap{overflow:auto;border:1px solid #e7edf2;border-radius:10px}.data-table{width:100%;border-collapse:collapse;text-align:left;min-width:760px}.data-table th{background:#f7fafd;font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:#899faf;padding:12px}.data-table td{font-size:12px;padding:10px 12px;border-top:1px solid #edf1f5;color:#527087}.data-table td:first-child{font-weight:700;color:#3a607b}.data-table tr:hover td{background:#fafdff}.data-table tbody tr.canceled-row{opacity:.6}.data-table button{font-size:11px}.overview-columns{display:grid;grid-template-columns:1.15fr .85fr;gap:18px}.card-grid{columns:2;column-gap:11px}.person-card{break-inside:avoid;border:1px solid #e1eaf1;border-radius:12px;padding:14px;background:#fff;margin-bottom:11px}.person-card-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:9px}.person-card strong{color:#365f78}.person-card small{display:block;color:#93a7b5;font-size:10px;margin:4px 0}.lesson-mini{border-top:1px solid #edf2f6;padding:7px 0;display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#70899a}.lesson-mini:last-child{padding-bottom:0}.lesson-mini b{color:#527187}.coverage-layout{display:grid;grid-template-columns:310px 1fr;gap:17px}.label{display:block;font-weight:750;color:#60798c;font-size:11px;margin-bottom:7px}.control-block{margin-bottom:18px}.select-full{width:100%;border:1px solid #d9e5ee;border-radius:9px;padding:10px;background:white;color:#345b74}.help{color:#93a5b4;font-size:11px;margin-top:6px}.checkbox-row{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:#627e8f;cursor:pointer;padding:6px 0}.checkbox-row input{accent-color:#267c9d;margin-top:2px}.onsite-list{border:1px solid #e2eaf0;border-radius:10px;max-height:290px;overflow:auto}.onsite-row{padding:11px 12px;border-bottom:1px solid #eaf0f4}.onsite-row:last-child{border:0}.onsite-name{display:flex;align-items:center;gap:8px;font-weight:700;color:#476c82}.onsite-times{display:flex;align-items:center;gap:5px;margin:7px 0 0 23px}.onsite-times input{min-width:0;width:106px;padding:5px 4px;border:1px solid #dbe7ee;border-radius:6px;color:#536e7f;font-size:10px}.analysis-empty{padding:50px 20px;text-align:center;color:#97a7b3}.analysis-empty strong{color:#4f7185;font-size:17px;display:block;margin-bottom:7px}.analysis-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.analysis-stat{padding:12px;background:#f7fafc;border:1px solid #e9eff3;border-radius:9px}.analysis-stat strong{font-size:24px;color:#2b5976;display:block}.analysis-stat span{font-size:10px;color:#8ca0ae}.recommendation{padding:14px;border:1px solid #e6edf2;border-radius:11px;margin-top:10px}.rec-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.rec-head strong{font-size:13px;color:#35607a}.rec-detail{color:#6e899b;font-size:11px;margin-top:5px}.rec-option{padding:9px 11px;margin-top:8px;background:#f5f9fb;border-radius:8px;font-size:11px;color:#506f81}.rec-alternate{font-size:11px;color:#8b9fac;margin-top:7px}.rec-uncovered{border-color:#edcec7;background:#fffbfa}.rec-review{border-color:#f1e2c6}.muted{color:#9aabb8}.print-only{display:none}.footer{font-size:10px;color:#a4b4c0;text-align:center;margin:32px auto}.modal-cover{position:fixed;inset:0;z-index:20;background:#203b5073;display:grid;place-items:center;padding:16px}.modal{background:#fff;border-radius:16px;padding:24px;width:min(475px,100%);box-shadow:0 20px 55px #132d4147}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:18px}.modal .form-row{margin-bottom:12px}.modal input,.modal select{width:100%;border:1px solid #dce7ef;border-radius:8px;padding:10px;color:#436379}.modal-buttons{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.menu{display:none}.summary-strip{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 14px}.tiny{font-size:10px}.warning-icon{color:#c99437}.btn-inline{border:0;background:transparent;color:#3184ad;font-weight:750;padding:3px;cursor:pointer}
-@media(max-width:1150px){.sidebar{width:206px}.page{padding:25px 21px}.overview-columns{grid-template-columns:1fr}.coverage-layout{grid-template-columns:1fr}.onsite-list{max-height:230px}.kpis{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.sidebar{position:fixed;z-index:15;left:-260px;transition:left .18s;box-shadow:10px 0 30px #183a5912;width:245px}.sidebar.mobile-open{left:0}.menu{display:inline-flex}.topbar{height:62px;padding:0 12px}.topbar-right{gap:5px}.local-status{display:none}.topbar-right .btn{padding:8px}.topbar-right .btn span{display:none}.page{padding:20px 13px}.heading{align-items:flex-start;flex-direction:column}.heading h1{font-size:26px}.kpis{gap:9px}.kpi{padding:12px}.kpi-value{font-size:27px}.panel-pad,.schedule-panel{padding:14px}.toolbar{align-items:flex-start}.field-inline{flex-wrap:wrap}.field{min-width:135px}.search{width:100%}.card-grid{columns:1}.feature-grid{grid-template-columns:1fr}.analysis-cards{gap:5px}.analysis-stat{padding:9px}.analysis-stat strong{font-size:20px}}
-@media print{body{background:#fff}.sidebar,.topbar,.heading .btn,.toolbar,.section-actions,.coverage-side,.footer,.no-print,.view-tabs{display:none!important}.page{padding:0}.panel{box-shadow:none;border:0}.coverage-layout{display:block}.coverage-results{display:block!important}.kpis{display:none}.recommendation{break-inside:avoid}.print-only{display:block}.app-view:not(#view-coverage){display:none!important}}
+/* Page-specific styles. Shared tokens and components live in studio.css. */
+.menu { position: relative; }
+.menu > summary { list-style: none; }
+.menu > summary::-webkit-details-marker { display: none; }
+.menu-list { position: absolute; right: 0; top: calc(100% + 6px); z-index: 30; min-width: 260px; max-height: 380px; overflow: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-pop); padding: 6px; display: flex; flex-direction: column; gap: 2px; }
+.menu-list button { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 8px 10px; border: 0; background: none; border-radius: var(--r-sm); font-size: var(--fs-sm); color: var(--text); }
+.menu-list button:hover { background: var(--surface-2); }
+.menu-list small { color: var(--text-3); font-size: var(--fs-xs); }
+.empty { max-width: 760px; margin: 48px auto; display: flex; flex-direction: column; gap: 24px; }
+.empty h1 { font-size: 28px; }
+.empty-lead { font-size: var(--fs-lg); color: var(--text-2); }
+.steps { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; counter-reset: step; }
+.steps li { display: flex; gap: 12px; align-items: flex-start; font-size: var(--fs-md); color: var(--text-2); }
+.steps li::before { counter-increment: step; content: counter(step); flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-text); font-weight: 650; font-size: var(--fs-xs); display: grid; place-items: center; }
+.dropzone { border: 2px dashed var(--border-strong); border-radius: var(--r-lg); background: var(--surface); padding: 32px 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.dropzone strong { font-size: var(--fs-lg); }
+.drop-overlay { position: fixed; inset: 12px; z-index: 60; border: 3px dashed var(--accent); border-radius: 16px; background: rgba(231, 239, 245, .92); display: grid; place-items: center; font-size: var(--fs-xl); font-weight: 620; color: var(--accent-text); pointer-events: none; }
+.lesson.hl { outline: 3px solid var(--accent); outline-offset: 1px; }
+.plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); }
+.plan-grid .plan-item { border-top: 1px solid var(--border); }
+.plan-item select { max-width: 100%; }
+.site { border-top: 1px solid var(--border); }
+.site > summary { cursor: pointer; padding: 12px 20px; font-size: var(--fs-sm); font-weight: 580; color: var(--text-2); }
+.site-row { display: grid; grid-template-columns: minmax(150px, 1.2fr) auto minmax(220px, 1fr) minmax(90px, auto); gap: 12px; align-items: center; padding: 8px 20px; border-top: 1px solid var(--border); font-size: var(--fs-sm); }
+.site-row input[type="time"] { height: 30px; padding: 0 6px; }
+.toolbar-files { display: none; }
+.lesson-out .lesson-title { text-decoration: line-through; }
+.sg-name-top { flex-wrap: wrap; }
+@media (max-width: 860px) {
+  .toolbar-files { display: inline-flex; }
+  .plan-grid { grid-template-columns: 1fr; }
+  .site-row { grid-template-columns: 1fr auto; }
+}
+@media print {
+  .attn-panel, .site, .plan-actions, .menu, .sg-name button, .hint-print-hide { display: none !important; }
+  body.print-plan .board-panel { display: none !important; }
+  .app { display: block; }
+  .lesson { break-inside: avoid; }
+}
 </style>
 </head>
 <body>
-<div class="layout">
-<aside class="sidebar" id="sidebar">
-  <a href="./index.html" class="brand"><span class="brandmark">≈</span><span><strong>Aquatics Studio</strong><small>LESSON WORKSPACE</small></span></a>
-  <div class="side-inner">
-    <div class="side-label">LESSON COVERAGE</div>
-    <button class="side-link active" data-page="overview"><span class="nav-symbol">◫</span> Overview</button>
-    <button class="side-link" data-page="timetable"><span class="nav-symbol">▤</span> Lesson timetable</button>
-    <button class="side-link" data-page="coverage"><span class="nav-symbol">✓</span> Coverage planner</button>
-    <div class="side-divider"></div>
-    <div class="side-label">OTHER WORKSPACE</div>
-    <a class="side-link" href="./index.html"><span class="nav-symbol">↗</span> Staff schedule</a>
-    <div class="side-divider"></div>
-    <div class="side-label">IMPORT</div>
-    <button class="sidebar-upload" id="uploadSide" type="button"><span style="font-size:23px">↥</span><strong>Import PIVVIT HTML</strong><small id="fileSideLabel">Choose a saved roster webpage</small></button>
-  </div>
-  <div class="private-note">✓ &nbsp; Local-only processing<br><span style="font-weight:450">No student identities are kept in the working schedule.</span></div>
-</aside>
-<main class="main">
-<header class="topbar"><div class="breadcrumb"><button class="btn btn-light btn-sm menu" id="menu" aria-label="Toggle menu">☰</button> Aquatics <span style="padding:0 7px">/</span> <strong id="crumb">Lesson overview</strong></div><div class="topbar-right"><span class="local-status">● Private in browser</span><a href="./index.html" class="btn btn-light btn-sm">↗ <span>Staff schedule</span></a><button id="uploadTop" class="btn btn-primary btn-sm">↥ <span>Import roster</span></button></div></header>
-<div class="page">
-  <div id="intro" class="import-hero"><div class="eyebrow">✦ AQUATICS STUDIO COMPANION</div><h1>Every lesson.<br><em>Every coverage option.</em></h1><p>Bring in a saved PIVVIT roster to see when instructors are teaching, how many children are expected, and which lessons could be covered if someone is absent.</p><div id="drop" class="drop" role="button" tabindex="0"><div class="drop-icon">▤ ↓</div><strong>Drop your saved PIVVIT webpage here</strong><span>or <u>browse for a .html file</u></span><small>Save a loaded PIVVIT roster using Ctrl + S. No server, login, or external upload.</small></div><div class="feature-grid"><div>▤ <b>Lesson timetable</b><span>Instructors and their classes in one view</span></div><div>◎ <b>Student counts</b><span>Expected enrollment, without student names</span></div><div>✓ <b>Coverage planner</b><span>Only existing on-site instructors; no call-in suggestions</span></div></div><div class="privacy">Class-level details are extracted locally and the source file is discarded after parsing.</div></div>
-  <div id="workspace" class="hidden">
-    <div class="heading"><div><div class="eyebrow">PIVVIT / ROSTER INTELLIGENCE</div><h1 id="pageTitle">Lesson overview</h1><p id="pageSub">See the day at a glance.</p></div><div class="section-actions"><button id="printPlan" type="button" class="btn btn-light hidden">▣ Print plan</button><button id="goCoverage" type="button" class="btn btn-teal">✓ Analyze coverage</button></div></div>
-    <div class="toolbar"><div class="field-inline"><label for="day">Roster date</label><select class="field" id="day"></select></div><div class="toolbar-right"><span class="pill" id="sourceDay">Local PIVVIT snapshot</span><span class="pill warn hidden" id="capacityAlert">Capacity date differs</span></div></div>
-    <div id="message" class="notice hidden"></div>
-    <section class="app-view" id="view-overview">
-      <div class="kpis"><div class="panel kpi"><div class="kpi-label">Lessons on selected day</div><div class="kpi-value" id="kLessons">0</div><div class="kpi-note">Excluding canceled occurrences</div></div><div class="panel kpi"><div class="kpi-label">Instructors on roster</div><div class="kpi-value" id="kInstructors">0</div><div class="kpi-note">Distinct assigned instructors</div></div><div class="panel kpi"><div class="kpi-label">Expected children</div><div class="kpi-value" id="kChildren">0</div><div class="kpi-note">Ignores historic red attendance Xs</div></div><div class="panel kpi"><div class="kpi-label">Non-running occurrences</div><div class="kpi-value" id="kCanceled">0</div><div class="kpi-note">Canceled or moved class slots</div></div></div>
-      <div class="overview-columns"><section class="panel panel-pad"><div class="section-head"><div><h2>Teaching team</h2><p class="sub">Every instructor and their scheduled classes.</p></div></div><div class="card-grid" id="instructorCards"></div></section><section class="panel panel-pad"><div class="section-head"><div><h2>At-a-glance timetable</h2><p class="sub">Latest imported roster, arranged by lesson time.</p></div><button class="btn btn-light btn-sm" data-go="timetable">Full timetable →</button></div><div id="quickList"></div></section></div>
-    </section>
-    <section class="app-view hidden" id="view-timetable"><div class="panel schedule-panel"><div class="section-head"><div><h2>Lesson timetable</h2><p class="sub">A shared time scale for every instructor. Click a lesson for details or to adjust its planning count.</p></div><div class="section-actions"><input id="search" class="field search" placeholder="Filter by instructor or level"><select id="zoom" class="field" aria-label="Timeline time range" style="min-width:140px"><option value="full">Full day</option><option value="afternoon">Afternoon focus</option></select><div class="view-tabs"><button class="view-tab active" id="timelineTab">Timeline</button><button class="view-tab" id="tableTab">Table</button></div></div></div><div id="timelineWrap" class="timeline-wrap"></div><div id="tableWrap" class="table-wrap hidden"></div><p class="help" style="margin-top:12px">Dimmed lessons are canceled/moved. An empty class still reserves its instructor's time unless you change that in coverage settings.</p></div></section>
-    <section class="app-view hidden" id="view-coverage"><div class="coverage-layout">
-      <section class="panel panel-pad coverage-side"><h2>Coverage settings</h2><p class="sub">Only assign instructors already on-site. No call-in recommendations.</p><div class="control-block" style="margin-top:21px"><label class="label" for="absent">Instructor calling out</label><select id="absent" class="select-full"><option value="">Select an instructor</option></select><p class="help">Their active classes become the lessons that need coverage.</p></div><div class="control-block"><span class="label">On-site instructor windows</span><p class="help" style="margin:0 0 8px">Initially estimated from each instructor's first and last lessons. Adjust to the hours they are actually working; this does not call anyone in.</p><div id="onsite" class="onsite-list"></div></div><div class="control-block"><label class="checkbox-row"><input id="allowEmpty" type="checkbox"> Treat zero-registration classes as free slots <span class="muted">(default: reserved)</span></label><label class="checkbox-row"><input id="verifyCapacity" type="checkbox"> I've checked the PIVVIT capacities for this date</label><p class="help">Otherwise a merge is shown as provisional if the capacity label is for another date.</p></div><button id="analyze" type="button" class="btn btn-teal" style="width:100%">Find best coverage plan</button></section>
-      <section class="panel panel-pad coverage-results"><div class="section-head"><div><h2>Recommended coverage plan</h2><p class="sub">Checks for time conflicts, matching levels, class capacity and instructor availability.</p></div></div><div id="analysis"><div class="analysis-empty"><strong>Ready to find coverage</strong>Choose an absent instructor, confirm who's on site, then run the planner.</div></div><div class="print-only"><p style="color:#78909f;font-size:11px">Aquatics Studio · Local coverage recommendations · Verify qualifications and class caps before changing anything in PIVVIT.</p></div></section>
-    </div></section>
-  </div>
-  <footer class="footer">Aquatics Studio · Lesson Coverage <span style="padding:0 8px">·</span> Static GitHub Pages build <span style="padding:0 8px">·</span> No roster data transmitted</footer>
+<div class="app">
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar"></aside>
+  <main class="main"><div class="page" id="page"></div></main>
 </div>
-</main>
-</div>
-<input id="file" type="file" hidden accept=".html,.htm,text/html">
-<div class="modal-cover hidden" id="modalCover"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><h2 id="modalTitle">Edit lesson</h2><button class="btn btn-light btn-sm" id="closeModal" type="button">×</button></div><p class="sub" style="margin-bottom:16px" id="modalInfo"></p><div class="form-row"><label class="label" for="editExpected">Expected students for this date</label><input id="editExpected" type="number" min="0" max="200"></div><div class="form-row"><label class="label" for="editCapacity">Maximum class capacity</label><input id="editCapacity" type="number" min="0" max="200"></div><div class="form-row"><label class="checkbox-row"><input id="editCanceled" type="checkbox"> Class canceled / moved on this date</label></div><div class="modal-buttons"><button class="btn btn-light" id="cancelModal" type="button">Cancel</button><button class="btn btn-primary" id="saveModal" type="button">Save planning changes</button></div><p class="help">These edits affect only the browser session, not PIVVIT.</p></div></div>
+<input type="file" id="fileInput" accept=".html,.htm,.xlsx,text/html" hidden multiple>
+<div id="overlay" class="drop-overlay" hidden>Drop a PIVVIT save or schedule export</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<div id="modal" class="modal-backdrop" hidden></div>
+
 <script>
 'use strict';
-const $=id=>document.getElementById(id);
-const h=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const norm=s=>String(s||'').replace(/\s+/g,' ').trim();
-const uid=()=>Math.random().toString(36).slice(2,11);
-const months={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
-const dayLabel=iso=>new Date(iso+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric',year:'numeric'});
-const dateCompare=(a,b)=>a.localeCompare(b);
-function parseDateHuman(s,year=2026){const m=norm(s).match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s*(\d{1,2})(?:,?\s+(20\d{2}))?/i);if(!m)return '';const d=new Date(Date.UTC(Number(m[3]||year),months[m[1].slice(0,3).toLowerCase()],Number(m[2])));return d.toISOString().slice(0,10);}
-function clock(str){const m=norm(str).toLowerCase().match(/^(\d{1,2}):(\d\d)\s*(am|pm)?$/);if(!m)return null;let hh=+m[1];if(hh>23||+m[2]>59)return null;if(m[3]){if(hh<1||hh>12)return null;hh=(hh%12)+(m[3]==='pm'?12:0);}return hh*60+(+m[2]);}
-function clockText(m){if(!Number.isFinite(m))return '—';const hr=Math.floor((m%1440+1440)%1440/60),mm=(m%60+60)%60;return (hr%12||12)+':'+String(mm).padStart(2,'0')+(hr>=12?' PM':' AM');}
-function shortClock(m){const hr=Math.floor(m/60);return (hr%12||12)+(hr>=12?'p':'a');}
-function timeInput(m){if(!Number.isFinite(m))return '';return String(Math.floor(m/60)%24).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
-function windowTime(s){const m=/^(\d{1,2}:\d{2}\s*(?:am|pm)?)\s*[-–—]\s*(\d{1,2}:\d{2}\s*(?:am|pm)?)$/i.exec(norm(s));if(!m)return null;let a=m[1],b=m[2];const sufA=(a.match(/(am|pm)$/i)||[])[1],sufB=(b.match(/(am|pm)$/i)||[])[1];if(!sufA&&sufB)a+=''+sufB;const begin=clock(a),end=clock(b);if(begin==null||end==null)return null;return [begin,end<=begin?end+1440:end];}
-function iconStatus(td){if(!td)return 'unknown';const icons=Array.from(td.querySelectorAll('svg[data-icon]'));if(icons.some(x=>x.getAttribute('data-icon')==='square'&&(x.getAttribute('data-prefix')==='fas'||x.id?.includes('class-canceled'))))return 'nonrunning';if(icons.some(x=>x.getAttribute('data-icon')==='square'&&x.id?.includes('class-canceled')))return 'nonrunning';if(icons.some(x=>x.getAttribute('data-icon')==='flag'))return 'flagged';if(icons.some(x=>x.getAttribute('data-icon')==='check'))return 'present';if(icons.some(x=>x.getAttribute('data-icon')==='xmark'&&x.classList.contains('future-date-color')))return 'future';if(icons.some(x=>x.getAttribute('data-icon')==='xmark'&&x.classList.contains('absence-color')))return 'historic-absence';if(icons.some(x=>x.getAttribute('data-icon')==='square'&&x.getAttribute('data-prefix')==='far'))return 'unknown';return 'unknown';}
-function excludesRegistration(tr,date,year){const raw=norm(tr.textContent);const start=raw.match(/STARTS\s+ON\s+([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2})/i);if(start){const d=parseDateHuman(start[1],year);if(d&&dateCompare(date,d)<0)return true;}const stop=raw.match(/(?:TRANSFERRED|CANCELED)\s+([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2})/i);if(stop){const d=parseDateHuman(stop[1],year);if(d&&dateCompare(date,d)>=0)return true;}return false;}
-function parseRoster(html){const doc=new DOMParser().parseFromString(html,'text/html');const root=doc.querySelector('.roster-screen__table');if(!root)throw Error('No PIVVIT roster table found. Open the roster page, select the day, and save the loaded webpage as HTML.');const blocks=Array.from(root.children).filter(x=>x.querySelector('.offering-title'));
- const isoMatches=Array.from(html.matchAll(/(?:instructor|participant)-\d+-(20\d{2}-\d\d-\d\d)/g),m=>m[1]);const years=isoMatches.map(x=>+x.slice(0,4));const year=years.length?years.sort((a,b)=>a-b)[Math.floor(years.length/2)]:new Date().getFullYear();
- const classes=[];const allDates=new Set();const notices=[];const collapsed=root.textContent.match(/Show\s+(\d+)\s+passed\s+class/i);if(collapsed)notices.push(collapsed[1]+' earlier classes are collapsed in the saved roster. Expand them in PIVVIT if they are needed for coverage.');
- for(const b of blocks){const heading=b.querySelector('.offering-title'),hs=Array.from(heading?.children||[]).filter(x=>x.matches('h2,h4'));const title=norm(hs[0]?.textContent),times=windowTime(hs[1]?.textContent),instructor=norm(hs[3]?.textContent);if(!title||!times||!instructor)continue;
- const capString=norm(b.querySelector('.daily-swim-lesson .mb-2 > span')?.textContent||'');const m=capString.match(/(\d+)\s+registered,\s*(\d+)\s+spot\(s\)\s+remaining\s*\(([^)]+)\)/i);const registered=m?+m[1]:null,remaining=m?+m[2]:null,capacity=registered!=null&&remaining!=null?registered+remaining:null,capacityDate=m?parseDateHuman(m[3],year):'';
- const table=b.querySelector('table');const dateHeaders=Array.from(table?.querySelectorAll('thead th')||[]).map(th=>parseDateHuman(th.textContent,year));dateHeaders.filter(Boolean).forEach(d=>allDates.add(d));const trs=Array.from(table?.querySelectorAll('tbody tr')||[]);const instRow=trs[0]||null;
- const observations={};for(let i=0;i<dateHeaders.length;i++){const date=dateHeaders[i];if(!date)continue;const idx=i;const teacherCell=instRow?.querySelectorAll('td')[idx];const teacher=iconStatus(teacherCell);let expected=0;let excluded=0;let ambiguous=0;for(const row of trs.slice(1)){const cells=row.querySelectorAll('td');const c=cells[idx];const status=iconStatus(c);if(status==='nonrunning'||status==='flagged'||excludesRegistration(row,date,year)){excluded++;continue;}
- // Past attendance Xs are retrospective attendance records, NOT a reason to discount expected registration.
- expected++;if(status==='unknown')ambiguous++;
- }
- const nonrunning=teacher==='nonrunning';observations[date]={expected,excluded,ambiguous,teacher,nonrunning};}
- classes.push({id:'lesson-'+classes.length,title,instructor,start:times[0],end:times[1],registered,remaining,capacity,capacityDate,observations,overrides:{}});
- }
- if(!classes.length)throw Error('The HTML contains a PIVVIT page, but no loaded class sections. Try expanding the roster and saving again.');
- if(!allDates.size)throw Error('Class sections were found but there were no dated attendance columns. Save a roster with the lesson dates visible.');
- const dates=Array.from(allDates).sort();const site=norm(doc.querySelector('body')?.textContent||'').slice(0,65);return {classes,dates,site,sourceClasses:classes.length,notices};}
-function isMergeable(x){return !/(private|assessment|try.?out|masters|clinic|team|camp|stroke|semi)/i.test(x.title);}
-function intersects(a,b,c,d){return a<d&&c<b;}
-const state={roster:null,day:'',page:'overview',tableMode:'timeline',filter:'',zoom:'full',absent:'',windows:{},verifiedCapacity:false,allowEmpty:false,editing:null,analysis:null};
-function lessonForDate(lesson,date=state.day){const obs=lesson.observations[date];const override=lesson.overrides[date]||{};return {...lesson,expected:override.expected??obs?.expected??lesson.registered??0,capacity:override.capacity??lesson.capacity,canceled:override.canceled??obs?.nonrunning??false,teacherStatus:obs?.teacher??'unknown',excluded:obs?.excluded??0,capacityValid:!!(override.capacity!==undefined||state.verifiedCapacity||lesson.capacityDate===date),manual:!!Object.keys(override).length};}
-function dailyLessons(){return state.roster?state.roster.classes.filter(x=>x.observations[state.day]).map(x=>lessonForDate(x)):[];}
-function activeLessons(){return dailyLessons().filter(x=>!x.canceled);}
-function instructorNames(){return [...new Set(dailyLessons().map(x=>x.instructor))].sort((a,b)=>a.localeCompare(b));}
-function loadWindows(){const d=dailyLessons();const prev=state.windows;state.windows={};for(const name of instructorNames()){const taught=d.filter(x=>x.instructor===name&&!x.canceled);const start=Math.min(...taught.map(x=>x.start)),end=Math.max(...taught.map(x=>x.end));const existing=prev[name];const flagged=taught.some(x=>x.teacherStatus==='flagged');state.windows[name]={enabled:existing?.enabled??!flagged,start:Number.isFinite(start)?(existing?.start??start):0,end:Number.isFinite(end)?(existing?.end??end):0};}}
-function showPage(page){state.page=page;for(const el of document.querySelectorAll('[data-page]'))el.classList.toggle('active',el.dataset.page===page);for(const id of ['overview','timetable','coverage'])$('view-'+id).classList.toggle('hidden',id!==page);const titles={overview:'Lesson overview',timetable:'Lesson timetable',coverage:'Coverage planner'},subs={overview:'Know who is teaching, what they teach, and how many children are expected.',timetable:'Instructors, lesson times and enrollment on one shared timetable.',coverage:'Find available on-site instructors and compatible class merges.'};$('pageTitle').textContent=titles[page];$('pageSub').textContent=subs[page];$('crumb').textContent=titles[page];$('printPlan').classList.toggle('hidden',page!=='coverage');if(page==='coverage')renderCoverageSetup();if(page==='timetable')renderTimetable();if(page==='overview')renderOverview();$('sidebar').classList.remove('mobile-open');}
-function reveal(){const r=state.roster;$('intro').classList.add('hidden');$('workspace').classList.remove('hidden');$('sourceDay').textContent=r.classes.length+' imported lessons';$('day').innerHTML=r.dates.map(d=>`<option value="${h(d)}">${h(dayLabel(d))}</option>`).join('');$('day').value=state.day;renderAll();}
-function updateMessage(){const d=dailyLessons(),counts=d.filter(x=>x.capacityDate&&x.capacityDate!==state.day).length;$('capacityAlert').classList.toggle('hidden',!counts);$('capacityAlert').textContent=counts+' capacities dated differently';const warning=d.some(x=>x.teacherStatus==='historic-absence');const alertText=`${state.roster.notices.join(' ')} PIVVIT import is a saved snapshot, not a live connection. ${counts?'Some displayed capacity values are dated differently from the selected lesson day; verify them before a merge. ':''}${warning?'Past red attendance Xs are not treated as advance call-outs. ':''}Student names are not retained.`;$('message').classList.remove('hidden');$('message').textContent=alertText;}
-function renderAll(){updateMessage();renderOverview();renderTimetable();renderCoverageSetup();}
-function renderOverview(){const data=dailyLessons(),active=data.filter(x=>!x.canceled),members=instructorNames(),children=active.reduce((a,x)=>a+x.expected,0);$('kLessons').textContent=active.length;$('kInstructors').textContent=members.length;$('kChildren').textContent=children;$('kCanceled').textContent=data.length-active.length;
- $('instructorCards').innerHTML=members.map(name=>{const cs=active.filter(x=>x.instructor===name).sort((a,b)=>a.start-b.start);const sum=cs.reduce((a,x)=>a+x.expected,0);return `<div class="person-card"><div class="person-card-head"><div><strong>${h(name)}</strong><small>${cs.length} lesson${cs.length===1?'':'s'} · ${sum} expected kids</small></div><span class="count-bubble">${cs.length}</span></div>${cs.length?cs.map(x=>`<div class="lesson-mini"><span>${h(clockText(x.start))} ${h(x.title)}</span><b>${x.expected}</b></div>`).join(''):'<div class="muted">No running lessons</div>'}</div>`;}).join('')||'<div class="muted">No instructors in this snapshot.</div>';
- $('quickList').innerHTML=active.sort((a,b)=>a.start-b.start||a.instructor.localeCompare(b.instructor)).slice(0,15).map(x=>`<div class="lesson-mini"><span><b>${h(clockText(x.start))}</b> · ${h(x.title)}<br><span class="muted">${h(x.instructor)}</span></span><span class="count-bubble">${x.expected} ${x.expected===1?'kid':'kids'}</span></div>`).join('')+(active.length>15?`<p class="help">+ ${active.length-15} more lessons in timetable</p>`:'')||'<div class="muted">No running lessons for this date.</div>';
+(() => {
+
+/* =========================================================================
+   Small helpers
+   ========================================================================= */
+const $ = id => document.getElementById(id);
+const h = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => String(s || '').replace(/\s+/g, ' ').trim();
+const MONTHS = { jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5, jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11 };
+const plural = (n, one, many) => n + ' ' + (n === 1 ? one : (many || one + 's'));
+const todayIso = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const dateTitle = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+const dateShort = iso => new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+function clockText(m) {
+  if (!Number.isFinite(m)) return '—';
+  const x = ((m % 1440) + 1440) % 1440, hr = Math.floor(x / 60), mm = x % 60;
+  return (hr % 12 || 12) + ':' + String(mm).padStart(2, '0') + (hr >= 12 ? ' PM' : ' AM');
 }
-function renderTimetable(){const lessons=dailyLessons().filter(x=>(x.title+' '+x.instructor).toLowerCase().includes(state.filter));$('timelineTab').classList.toggle('active',state.tableMode==='timeline');$('tableTab').classList.toggle('active',state.tableMode==='table');$('timelineWrap').classList.toggle('hidden',state.tableMode!=='timeline');$('tableWrap').classList.toggle('hidden',state.tableMode!=='table');const max=Math.max(60,...lessons.map(x=>x.end));const min=Math.min(6*60,...lessons.map(x=>x.start));const start=state.zoom==='afternoon'?14*60:Math.floor(min/60)*60,end=state.zoom==='afternoon'?Math.max(20*60,Math.ceil(max/60)*60):Math.ceil(max/60)*60,diff=Math.max(60,end-start);const timelineLessons=lessons.filter(x=>x.end>start&&x.start<end);const names=[...new Set(timelineLessons.map(x=>x.instructor))].sort();$('zoom').value=state.zoom;const ticks=[];for(let t=start;t<=end;t+=60)ticks.push(`<span class="hour-tick${t===end?' last':''}" style="left:${(t-start)/diff*100}%">${h(shortClock(t))}</span>`);
- $('timelineWrap').innerHTML=`<div class="timeline"><div class="timeline-header"><div class="timeline-name-header">INSTRUCTOR</div><div class="timeline-track-header">${ticks.join('')}</div></div>${names.map(name=>`<div class="timeline-row"><div class="timeline-person" title="${h(name)}">${h(name)}</div><div class="timeline-body" style="--step:${60/diff*100}%">${timelineLessons.filter(x=>x.instructor===name).map(x=>`<button type="button" class="timeline-lesson ${x.canceled?'canceled':x.expected===0?'empty':''}" style="left:${(Math.max(x.start,start)-start)/diff*100}%;width:${(Math.min(x.end,end)-Math.max(x.start,start))/diff*100}%" data-edit="${h(x.id)}" title="${h(x.title)} · ${h(clockText(x.start))}–${h(clockText(x.end))} · ${x.expected} kids${x.canceled?' · Canceled/moved':''}">${h(x.title)} · ${x.expected}</button>`).join('')}</div></div>`).join('')}</div>`;
- $('tableWrap').innerHTML=`<table class="data-table"><thead><tr><th>Time</th><th>Level / class</th><th>Instructor</th><th>Expected</th><th>Capacity</th><th>Status</th><th></th></tr></thead><tbody>${lessons.sort((a,b)=>a.start-b.start||a.instructor.localeCompare(b.instructor)).map(x=>`<tr class="${x.canceled?'canceled-row':''}"><td>${h(clockText(x.start))}–${h(clockText(x.end))}</td><td>${h(x.title)}</td><td>${h(x.instructor)}</td><td>${x.expected}</td><td>${x.capacity??'—'} ${x.capacityValid?'':'⚠'}</td><td><span class="pill ${x.canceled?'warn':'success'}">${x.canceled?'Canceled / moved':'Scheduled'}</span></td><td><button data-edit="${h(x.id)}" class="btn btn-light btn-sm">Edit</button></td></tr>`).join('')}</tbody></table>`;}
-function renderCoverageSetup(){const names=instructorNames();if(!names.includes(state.absent))state.absent='';$('absent').innerHTML='<option value="">Select instructor</option>'+names.map(x=>`<option value="${h(x)}">${h(x)}</option>`).join('');$('absent').value=state.absent;$('onsite').innerHTML=names.filter(n=>n!==state.absent).map(n=>{const w=state.windows[n]||{enabled:false,start:0,end:0};return `<div class="onsite-row"><label class="onsite-name"><input type="checkbox" data-onsite="${h(n)}" ${w.enabled?'checked':''}>${h(n)}</label><div class="onsite-times"><input type="time" data-window="${h(n)}" data-end="start" value="${timeInput(w.start)}" title="Shift start"><span>to</span><input type="time" data-window="${h(n)}" data-end="end" value="${timeInput(w.end)}" title="Shift end"></div></div>`;}).join('');$('verifyCapacity').checked=state.verifiedCapacity;$('allowEmpty').checked=state.allowEmpty;}
-function possibleMatches(classes, absent, windows, opts){const affected=classes.filter(x=>!x.canceled&&x.instructor===absent&&x.expected>0).sort((a,b)=>a.start-b.start);const others=classes.filter(x=>!x.canceled&&x.instructor!==absent);const options=affected.map(task=>{const possible=[];
- for(const [name,window] of Object.entries(windows)){if(name===absent||!window.enabled||window.start>task.start||window.end<task.end)continue;
- const busy=others.some(x=>x.instructor===name&&intersects(x.start,x.end,task.start,task.end)&&(!opts.allowEmpty||x.expected>0));
- if(!busy){const levelExperience=others.some(x=>x.instructor===name&&x.title.toLowerCase()===task.title.toLowerCase());possible.push({type:'sub',name,score:levelExperience?75:65,levelExperience});}
- }
- if(isMergeable(task))for(const host of others){if(!isMergeable(host)||host.title.toLowerCase()!==task.title.toLowerCase()||host.start!==task.start||host.end!==task.end)continue;
- if(host.expected===0)continue;const window=windows[host.instructor];if(!window?.enabled||window.start>host.start||window.end<host.end)continue;
- if(!Number.isFinite(host.capacity))continue;
- const capValid=host.capacityValid||opts.verifiedCapacity;
- if(host.capacity-host.expected>=task.expected)possible.push({type:'merge',name:host.instructor,hostId:host.id,score:capValid?100:42,capacityValid:capValid,capacity:host.capacity,available:host.capacity-host.expected});
- }
- possible.sort((a,b)=>b.score-a.score);return {task,options:possible.slice(0,10)};
- });
- // Small, deterministic joint assignment search: one instructor cannot teach simultaneous replacements,
- // and multiple merges into one host cannot exceed remaining capacity.
- let best=null,visits=0;const assigned=[],busySubs=[],merged={};
- function recurse(i,covered,confirmed,score){if(visits++>180000)return;if(i===options.length){const value=covered*10000+confirmed*100+score;if(!best||value>best.value)best={value,assigned:assigned.slice(),covered,confirmed};return;}
- if(best&&covered+(options.length-i)<best.covered)return;
- const {task,options:opts}=options[i];
- for(const opt of opts){if(opt.type==='sub'&&busySubs.some(x=>x.name===opt.name&&intersects(x.start,x.end,task.start,task.end)))continue;
- if(opt.type==='merge'&&(merged[opt.hostId]||0)+task.expected>opt.available)continue;
- if(opt.type==='sub')busySubs.push({name:opt.name,start:task.start,end:task.end});else merged[opt.hostId]=(merged[opt.hostId]||0)+task.expected;
- assigned.push(opt);recurse(i+1,covered+1,confirmed+(opt.type==='sub'||opt.capacityValid?1:0),score+opt.score);assigned.pop();
- if(opt.type==='sub')busySubs.pop();else merged[opt.hostId]-=task.expected;
- }
- assigned.push(null);recurse(i+1,covered,confirmed,score);assigned.pop();}
- recurse(0,0,0,0);return {affected,results:affected.map((task,i)=>({task,chosen:best?.assigned[i]||null,alternatives:options[i].options,reason:options[i].options.length?'Conflicts with other displaced classes or limited capacity.':'No on-site instructor with a free time window or compatible class with space.'})),capUnknown:affected.filter(t=>!t.capacityValid).length,visits};}
-function analyze(){if(!state.absent){$('analysis').innerHTML='<div class="analysis-empty"><strong>Select an instructor first</strong>Choose who is calling out to calculate coverage.</div>';return;}
- const plan=possibleMatches(dailyLessons(),state.absent,state.windows,{allowEmpty:state.allowEmpty,verifiedCapacity:state.verifiedCapacity});state.analysis=plan;const all=plan.results,covered=all.filter(x=>x.chosen&&(x.chosen.type==='sub'||x.chosen.capacityValid)).length,review=all.filter(x=>x.chosen?.type==='merge'&&!x.chosen.capacityValid).length,uncovered=all.length-covered-review;
- const noKids=dailyLessons().filter(x=>x.instructor===state.absent&&!x.canceled&&x.expected===0).length;
- $('analysis').innerHTML=`<div class="summary-strip"><strong style="color:#315a76">${h(state.absent)}</strong><span class="pill">${all.length} affected classes</span>${noKids?`<span class="pill">${noKids} zero-enrollment slots</span>`:''}</div>
- <div class="analysis-cards"><div class="analysis-stat"><strong>${covered}</strong><span>Possible to cover</span></div><div class="analysis-stat"><strong>${review}</strong><span>Capacity review</span></div><div class="analysis-stat"><strong>${uncovered}</strong><span>No viable assignment</span></div></div>
- <div class="notice warn">These are planning recommendations, not confirmed reassignments. Verify the substitute is on site and qualified; verify class merging is permitted and capacity is correct. No PIVVIT records are changed.</div>
- ${all.length?all.map((r,i)=>{const x=r.task,o=r.chosen;const status=o?o.type==='merge'&&!o.capacityValid?'Capacity review':'Potential coverage':'Uncovered';const cls=o?(o.type==='merge'&&!o.capacityValid?'rec-review':''):'rec-uncovered';const badge=o?(o.type==='merge'&&!o.capacityValid?'warn':'success'):'danger';let detail=o?o.type==='sub'?`<strong>Substitute:</strong> ${h(o.name)} · Free during ${h(clockText(x.start))}–${h(clockText(x.end))}. ${o.levelExperience?'Has this class level elsewhere in the imported roster.':'Confirm qualification for this level.'}`:`<strong>Merge:</strong> ${h(o.name)} · Same level and identical lesson time. ${x.expected} students into host with ${o.available} available spots.${!o.capacityValid?' Capacity date needs verification.':''}`:r.reason;
- return `<article class="recommendation ${cls}"><div class="rec-head"><div><strong>${h(clockText(x.start))} – ${h(clockText(x.end))} · ${h(x.title)}</strong><div class="rec-detail">${x.expected} expected child${x.expected===1?'':'ren'} · ${h(x.instructor)}</div></div><span class="pill ${badge}">${status}</span></div><div class="rec-option">${detail}</div>${r.alternatives.length>1?`<div class="rec-alternate">${r.alternatives.length-1} other matching option${r.alternatives.length===2?'':'s'} evaluated</div>`:''}</article>`;}).join(''):'<div class="analysis-empty"><strong>No affected enrolled classes</strong>This instructor has no active lessons with expected students on the selected date.</div>'}`;}
-function openModal(id){const x=dailyLessons().find(x=>x.id===id);if(!x)return;state.editing=id;$('modalTitle').textContent=x.title;$('modalInfo').textContent=x.instructor+' · '+clockText(x.start)+' – '+clockText(x.end)+' · '+dayLabel(state.day);$('editExpected').value=x.expected;$('editCapacity').value=x.capacity??'';$('editCanceled').checked=x.canceled;$('modalCover').classList.remove('hidden');}
-function closeModal(){state.editing=null;$('modalCover').classList.add('hidden');}
-function saveModal(){const x=state.roster.classes.find(x=>x.id===state.editing);if(!x)return;const expected=Number($('editExpected').value),raw=$('editCapacity').value.trim(),capacity=raw?Number(raw):null;if(!Number.isInteger(expected)||expected<0||expected>200||capacity!==null&&(!Number.isInteger(capacity)||capacity<0||capacity>200)){alert('Please enter valid counts between 0 and 200.');return;}if(capacity!==null&&capacity<expected){alert('Capacity cannot be lower than expected students.');return;}x.overrides[state.day]={expected,capacity,canceled:$('editCanceled').checked};state.analysis=null;closeModal();renderAll();$('analysis').innerHTML='<div class="analysis-empty"><strong>Planning details changed</strong>Run the coverage search again to reflect your edits.</div>';}
-async function importFile(file){if(!file)return;if(!/\.html?$/i.test(file.name)){alert('Please select a saved PIVVIT .html or .htm file.');return;}try{const text=await file.text();if(text.length>30*1024*1024)throw Error('HTML file is too large (maximum 30 MB).');const roster=parseRoster(text);state.roster=roster;state.day=roster.dates[0];state.absent='';state.analysis=null;state.verifiedCapacity=false;state.allowEmpty=false;state.filter='';$('search').value='';$('fileSideLabel').textContent=file.name.length>33?file.name.slice(0,30)+'…':file.name;loadWindows();reveal();showPage('overview');}catch(err){alert('Could not import this roster: '+err.message);}finally{$('file').value='';}}
-function bind(){const choose=()=>$('file').click();$('uploadSide').onclick=choose;$('uploadTop').onclick=choose;$('drop').onclick=choose;$('drop').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose();}};$('file').onchange=e=>importFile(e.target.files?.[0]);for(const ev of ['dragenter','dragover'])$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.add('drag')});for(const ev of ['dragleave','drop'])$('drop').addEventListener(ev,e=>{e.preventDefault();$('drop').classList.remove('drag')});$('drop').addEventListener('drop',e=>importFile(e.dataTransfer.files?.[0]));
- document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>{e.preventDefault();if($('intro').classList.contains('hidden')&&e.dataTransfer.files?.length)importFile(e.dataTransfer.files[0]);});
- document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showPage(b.dataset.go));$('goCoverage').onclick=()=>showPage('coverage');$('menu').onclick=()=>$('sidebar').classList.toggle('mobile-open');$('day').onchange=e=>{state.day=e.target.value;state.absent='';state.analysis=null;loadWindows();renderAll();if(state.page==='coverage')$('analysis').innerHTML='<div class="analysis-empty"><strong>New roster date selected</strong>Choose an instructor and calculate coverage for this date.</div>';};
- $('timelineTab').onclick=()=>{state.tableMode='timeline';renderTimetable();};$('tableTab').onclick=()=>{state.tableMode='table';renderTimetable();};$('zoom').onchange=e=>{state.zoom=e.target.value;renderTimetable();};$('search').oninput=e=>{state.filter=e.target.value.toLowerCase();renderTimetable()};for(const id of ['timelineWrap','tableWrap'])$(id).onclick=e=>{const b=e.target.closest('[data-edit]');if(b)openModal(b.dataset.edit);};$('absent').onchange=e=>{state.absent=e.target.value;state.analysis=null;renderCoverageSetup();};$('onsite').onchange=e=>{if(e.target.matches('[data-onsite]')){state.windows[e.target.dataset.onsite].enabled=e.target.checked;}if(e.target.matches('[data-window]')){const n=e.target.dataset.window,k=e.target.dataset.end,v=clock(e.target.value);if(v!=null)state.windows[n][k]=v;}};$('verifyCapacity').onchange=e=>{state.verifiedCapacity=e.target.checked;state.analysis=null;};$('allowEmpty').onchange=e=>{state.allowEmpty=e.target.checked;state.analysis=null;};$('analyze').onclick=analyze;$('printPlan').onclick=()=>{if(!state.analysis){alert('Run a coverage analysis first.');return;}window.print();};$('closeModal').onclick=closeModal;$('cancelModal').onclick=closeModal;$('modalCover').onclick=e=>{if(e.target===$('modalCover'))closeModal();};$('saveModal').onclick=saveModal;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
-window.AquaticsCoverageTest={parseRoster,lessonForDate,possibleMatches,iconStatus,excludesRegistration};
+function clockShort(m) { const x = ((m % 1440) + 1440) % 1440, hr = Math.floor(x / 60); return (hr % 12 || 12) + ':' + String(x % 60).padStart(2, '0'); }
+function range(s, e) {
+  const a = clockText(s), b = clockText(e);
+  return a.slice(-2) === b.slice(-2) ? clockShort(s) + '–' + b : a + ' – ' + b;
+}
+function timeInput(m) { return Number.isFinite(m) ? String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0') : ''; }
+function fromTimeInput(v) { const m = /^(\d{2}):(\d{2})$/.exec(v || ''); return m ? +m[1] * 60 + +m[2] : null; }
+const overlaps = (a, b, c, d) => a < d && c < b;
+
+const ICONS = {
+  waves: '<path d="M2 8c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/><path d="M2 14c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  external: '<path d="M7 17 17 7M7 7h10v10"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/>',
+  upload: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5M12 3v12"/>',
+  lock: '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+  left: '<path d="m15 18-6-6 6-6"/>',
+  right: '<path d="m9 18 6-6-6-6"/>',
+  print: '<path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>',
+  userX: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 8 5 5M22 8l-5 5"/>',
+  warn: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
+  info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>',
+  ok: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+  xCircle: '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>',
+  copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
+  x: '<path d="M18 6 6 18M6 6l12 12"/>',
+  merge: '<path d="M8 6v6a4 4 0 0 0 4 4h6"/><path d="m15 13 3 3-3 3"/><circle cx="8" cy="4" r="2"/>'
+};
+const icon = (name, extra = '') => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"${extra}>${ICONS[name]}</svg>`;
+
+/* =========================================================================
+   PIVVIT roster parser
+   ========================================================================= */
+function parseDateHuman(s, year = new Date().getFullYear()) {
+  const m = norm(s).match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s*(\d{1,2})(?:,?\s+(20\d{2}))?/i);
+  if (!m) return '';
+  return new Date(Date.UTC(Number(m[3] || year), MONTHS[m[1].slice(0, 3).toLowerCase()], Number(m[2]))).toISOString().slice(0, 10);
+}
+function clock(str) {
+  const m = norm(str).toLowerCase().match(/^(\d{1,2}):(\d\d)\s*(am|pm)?$/);
+  if (!m) return null;
+  let hh = +m[1];
+  if (hh > 23 || +m[2] > 59) return null;
+  if (m[3]) { if (hh < 1 || hh > 12) return null; hh = (hh % 12) + (m[3] === 'pm' ? 12 : 0); }
+  return hh * 60 + +m[2];
+}
+function windowTime(s) {
+  const m = /^(\d{1,2}:\d{2}\s*(?:am|pm)?)\s*[-–—]\s*(\d{1,2}:\d{2}\s*(?:am|pm)?)$/i.exec(norm(s));
+  if (!m) return null;
+  let a = m[1];
+  const sufA = (a.match(/(am|pm)$/i) || [])[1], sufB = (m[2].match(/(am|pm)$/i) || [])[1];
+  if (!sufA && sufB) a += sufB;
+  const begin = clock(a), end = clock(m[2]);
+  if (begin == null || end == null) return null;
+  return [begin, end <= begin ? end + 1440 : end];
+}
+// PIVVIT renders every state in a cell and hides inactive ones with inline display:none.
+function shownIn(el, cell) {
+  for (let x = el; x && x !== cell; x = x.parentElement) if (/display\s*:\s*none/i.test(x.getAttribute('style') || '')) return false;
+  return true;
+}
+function iconStatus(td) {
+  if (!td) return 'unknown';
+  const icons = Array.from(td.querySelectorAll('svg[data-icon]')).filter(x => shownIn(x, td));
+  const has = (name, cls) => icons.some(x => x.getAttribute('data-icon') === name && (!cls || x.classList.contains(cls)));
+  if (icons.some(x => x.getAttribute('data-icon') === 'square' && (x.getAttribute('data-prefix') === 'fas' || (x.id || '').includes('class-canceled')))) return 'nonrunning';
+  if (has('flag') || Array.from(td.querySelectorAll('i.bi-flag-fill, i.bi-flag')).some(x => shownIn(x, td))) return 'flagged';
+  if (has('xmark', 'excused-absence-color')) return 'excused';
+  if (has('check')) return 'present';
+  if (Array.from(td.querySelectorAll('button.orange-btn')).some(x => shownIn(x, td))) return 'pending';
+  if (has('xmark', 'future-date-color')) return 'future';
+  if (has('xmark', 'absence-color')) return 'historic-absence';
+  return 'unknown';
+}
+function excludesRegistration(tr, date, year) {
+  const raw = norm(tr.textContent);
+  const start = raw.match(/STARTS\s+ON\s+([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2})/i);
+  if (start) { const d = parseDateHuman(start[1], year); if (d && date < d) return true; }
+  const stop = raw.match(/(?:TRANSFERRED|CANCELED)\s+([A-Za-z]{3,9}\s+\d{1,2},?\s+20\d{2})/i);
+  if (stop) { const d = parseDateHuman(stop[1], year); if (d && date >= d) return true; }
+  return false;
+}
+function parseRoster(html) {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const root = doc.querySelector('.roster-screen__table');
+  if (!root) throw Error('This file has no PIVVIT roster in it. Open the roster in PIVVIT, wait for it to load, then save the page.');
+  const blocks = Array.from(root.children).filter(x => x.querySelector('.offering-title'));
+  const years = Array.from(html.matchAll(/(?:instructor|participant)-\d+-(20\d{2})-\d\d-\d\d/g), m => +m[1]).sort((a, b) => a - b);
+  const year = years.length ? years[Math.floor(years.length / 2)] : new Date().getFullYear();
+  const classes = [], allDates = new Set(), notices = [];
+  const collapsed = root.textContent.match(/Show\s+(\d+)\s+passed\s+class/i);
+  if (collapsed) notices.push(collapsed[1]);
+  for (const b of blocks) {
+    const hs = Array.from(b.querySelector('.offering-title').children).filter(x => x.matches('h2,h4'));
+    const title = norm(hs[0]?.textContent), times = windowTime(hs[1]?.textContent), instructor = norm(hs[3]?.textContent);
+    if (!title || !times || !instructor) continue;
+    const capString = norm(b.querySelector('.daily-swim-lesson .mb-2 > span')?.textContent || '');
+    const m = capString.match(/(\d+)\s+registered,\s*(\d+)\s+spot\(s\)\s+remaining\s*\(([^)]+)\)/i);
+    const registered = m ? +m[1] : null, remaining = m ? +m[2] : null;
+    const capacity = registered != null && remaining != null ? registered + remaining : null;
+    const capacityDate = m ? parseDateHuman(m[3], year) : '';
+    const table = b.querySelector('table');
+    const dateHeaders = Array.from(table?.querySelectorAll('thead th') || []).map(th => parseDateHuman(th.textContent, year));
+    dateHeaders.filter(Boolean).forEach(d => allDates.add(d));
+    const trs = Array.from(table?.querySelectorAll('tbody tr') || []);
+    const instRow = trs[0] || null;
+    const observations = {};
+    dateHeaders.forEach((date, idx) => {
+      if (!date) return;
+      const teacher = iconStatus(instRow?.querySelectorAll('td')[idx]);
+      let expected = 0, excluded = 0, ambiguous = 0;
+      const tally = { present: 0, pending: 0, flagged: 0, excused: 0, notEnrolled: 0 };
+      for (const row of trs.slice(1)) {
+        const status = iconStatus(row.querySelectorAll('td')[idx]);
+        if (status === 'nonrunning' || excludesRegistration(row, date, year)) { excluded++; tally.notEnrolled++; continue; }
+        if (status === 'flagged' || status === 'excused') { excluded++; tally[status]++; continue; }
+        if (status === 'present' || status === 'pending') tally[status]++;
+        // Past red Xs are attendance history, not a reason to expect fewer kids.
+        expected++;
+        if (status === 'unknown') ambiguous++;
+      }
+      observations[date] = { expected, excluded, ambiguous, teacher, nonrunning: teacher === 'nonrunning', tally };
+    });
+    classes.push({ id: 'lesson-' + classes.length, title, instructor, start: times[0], end: times[1], registered, remaining, capacity, capacityDate, observations, overrides: {} });
+  }
+  if (!classes.length) throw Error('The roster loaded but has no classes in it. Expand the roster in PIVVIT and save again.');
+  if (!allDates.size) throw Error('The classes have no dated columns. Save the roster with its lesson dates showing.');
+  return { classes, dates: Array.from(allDates).sort(), notices };
+}
+
+/* =========================================================================
+   Shift file parser (Life Time Excel export) — swim instructors only.
+   A copy of the Staff schedule reader, kept separate on purpose: the two
+   pages never share data.
+   ========================================================================= */
+const utf8 = new TextDecoder();
+async function inflateRaw(bytes) {
+  if (typeof DecompressionStream === 'undefined') throw Error('This browser cannot open Excel files. Use a recent Chrome, Edge, Firefox or Safari.');
+  return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer());
+}
+async function unzipEntries(buffer) {
+  const bytes = new Uint8Array(buffer), dv = new DataView(buffer), out = new Map();
+  const r16 = x => dv.getUint16(x, true), r32 = x => dv.getUint32(x, true);
+  let end = -1;
+  for (let i = bytes.length - 22; i >= Math.max(0, bytes.length - 65557); i--) if (r32(i) === 0x06054b50) { end = i; break; }
+  if (end < 0) throw Error('This is not a valid .xlsx file.');
+  const num = r16(end + 10);
+  let pos = r32(end + 16), total = 0;
+  if (num > 20000) throw Error('This workbook has too many parts.');
+  for (let i = 0; i < num; i++) {
+    if (r32(pos) !== 0x02014b50) throw Error('This Excel file is damaged.');
+    const method = r16(pos + 10), len = r32(pos + 20), unLen = r32(pos + 24), nlen = r16(pos + 28), elen = r16(pos + 30), clen = r16(pos + 32), off = r32(pos + 42);
+    const name = utf8.decode(bytes.subarray(pos + 46, pos + 46 + nlen));
+    pos += 46 + nlen + elen + clen;
+    if (name.includes('..')) throw Error('This Excel file is damaged.');
+    if (unLen > 60e6 || (total += unLen) > 100e6) throw Error('This Excel file is too large.');
+    if (r32(off) !== 0x04034b50) throw Error('This Excel file is damaged.');
+    const start = off + 30 + r16(off + 26) + r16(off + 28);
+    let data = bytes.slice(start, start + len);
+    if (method === 8) data = await inflateRaw(data); else if (method !== 0) throw Error('This Excel file uses an unsupported format.');
+    out.set(name.replace(/^\//, ''), data);
+  }
+  return out;
+}
+function parseXml(bytes) {
+  const doc = new DOMParser().parseFromString(utf8.decode(bytes), 'application/xml');
+  if (doc.getElementsByTagName('parsererror').length) throw Error('This Excel file is damaged.');
+  return doc;
+}
+const els = (parent, name) => Array.from(parent.getElementsByTagNameNS('*', name));
+function colIndex(ref) { const p = String(ref || '').match(/^[A-Za-z]+/); return p ? [...p[0].toUpperCase()].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) - 1 : -1; }
+function cellText(cell, strings) {
+  const type = cell.getAttribute('t');
+  if (type === 'inlineStr') return els(cell, 't').map(x => x.textContent).join('');
+  const v = els(cell, 'v')[0];
+  if (!v) return '';
+  return type === 's' ? (strings[+v.textContent] || '') : (v.textContent || '');
+}
+const isDateHeader = s => /\d{1,2}[\/-]\d{1,2}/.test(s);
+function isoFromHeader(label, anchor) {
+  const raw = String(label || '').trim();
+  const m = raw.match(/(\d{1,2})[\/-](\d{1,2})(?:[\/-](\d{2,4}))?/);
+  if (!m) return '';
+  const mo = +m[1], day = +m[2];
+  let year = m[3] ? +m[3] : null;
+  if (year !== null && year < 100) year += 2000;
+  const wd = raw.match(/\b(sun|mon|tue|wed|thu|fri|sat)/i);
+  const names = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  const years = year ? [year] : [anchor.getFullYear() - 1, anchor.getFullYear(), anchor.getFullYear() + 1];
+  const cands = years.map(y => new Date(Date.UTC(y, mo - 1, day)))
+    .filter(d => d.getUTCMonth() === mo - 1 && d.getUTCDate() === day)
+    .filter(d => !wd || names[d.getUTCDay()] === wd[1].toLowerCase())
+    .sort((a, b) => Math.abs(a - anchor) - Math.abs(b - anchor));
+  return cands[0] ? cands[0].toISOString().slice(0, 10) : '';
+}
+function parseClock12(s) {
+  const m = String(s).toUpperCase().replace(/\s/g, '').match(/^(\d{1,2}):(\d{2})(AM|PM)$/);
+  if (!m) return null;
+  const hh = +m[1], mm = +m[2];
+  if (hh < 1 || hh > 12 || mm > 59) return null;
+  return (hh % 12 + (m[3] === 'PM' ? 12 : 0)) * 60 + mm;
+}
+const TIME_RE = /(\[OPEN SHIFT\]\s*)?(\d{1,2}:\d{2}\s*[AP]M)\s*[–—-]\s*(\d{1,2}:\d{2}\s*[AP]M)/gi;
+async function parseShiftWorkbook(buffer, anchor = new Date()) {
+  const entries = await unzipEntries(buffer);
+  const strings = entries.get('xl/sharedStrings.xml') ? els(parseXml(entries.get('xl/sharedStrings.xml')), 'si').map(e => els(e, 't').map(t => t.textContent).join('')) : [];
+  const sheets = [...entries.keys()].filter(p => /^xl\/worksheets\/sheet\d+\.xml$/i.test(p)).sort((a, b) => +a.match(/(\d+)\.xml/)[1] - +b.match(/(\d+)\.xml/)[1]);
+  for (const path of sheets) {
+    const rows = els(parseXml(entries.get(path)), 'row').map(row => { const arr = []; els(row, 'c').forEach(c => { const i = colIndex(c.getAttribute('r')); if (i >= 0) arr[i] = cellText(c, strings); }); return arr; });
+    const head = rows.findIndex(r => r.slice(1).filter(x => isDateHeader(String(x || ''))).length >= 2);
+    if (head < 0) continue;
+    const byDate = {}, dates = [];
+    let count = 0;
+    rows[head].forEach((label, c) => {
+      if (c === 0 || !isDateHeader(String(label || ''))) return;
+      const iso = isoFromHeader(label, anchor);
+      if (!iso) return;
+      const seen = new Set(), list = [];
+      for (let r = head + 1; r < rows.length; r++) {
+        const worker = rows[r][0], text = String(rows[r][c] || '').replace(/\r\n?/g, '\n');
+        if (!worker || !text) continue;
+        const matches = [...text.matchAll(TIME_RE)];
+        matches.forEach((m, j) => {
+          const section = text.slice(m.index, j + 1 < matches.length ? matches[j + 1].index : text.length);
+          if (!/\bAquatics\s+Swim\s+Instructor\b/i.test(section)) return;
+          const start = parseClock12(m[2]);
+          let end = parseClock12(m[3]);
+          if (start == null || end == null) return;
+          if (end <= start) end += 1440;
+          const clean = String(worker).trim().replace(/\s*\([^)]*\)\s*$/, '').trim();
+          const open = !!m[1] || /OPEN SHIFT/i.test(clean);
+          const shift = { name: open ? '' : clean, start, end, open };
+          const key = [shift.name.toLowerCase(), start, end, open].join('|');
+          if (seen.has(key)) return;
+          seen.add(key); list.push(shift); count++;
+        });
+      }
+      byDate[iso] = list; dates.push(iso);
+    });
+    if (!dates.length) break;
+    return { byDate, dates, count };
+  }
+  throw Error('Could not find the schedule table in this Excel file. It should have a Worker column followed by dates.');
+}
+
+/* =========================================================================
+   Model
+   ========================================================================= */
+const isAssessment = t => /assessment/i.test(t);
+const isPrivate = t => /private/i.test(t);
+const isMergeable = t => !/(private|assessment|try.?out|masters|clinic|team|camp|stroke|semi)/i.test(t);
+const lessonKey = c => [c.title, c.start, c.end, c.instructor].join('|');
+const normName = s => String(s || '').toLowerCase().replace(/[^a-z\s'-]/g, ' ').replace(/\s+/g, ' ').trim();
+function sameName(a, b) {
+  const x = normName(a), y = normName(b);
+  if (!x || !y) return false;
+  if (x === y) return true;
+  const xs = x.split(' '), ys = y.split(' ');
+  return xs[0] === ys[0] && xs[xs.length - 1] === ys[ys.length - 1];
+}
+
+const PREFS_KEY = 'aquatics-coverage-prefs';
+function readPrefs() { try { const p = JSON.parse(localStorage.getItem(PREFS_KEY)) || {}; return { prefer: p.prefer === 'merge' ? 'merge' : 'sub', emptyFree: p.emptyFree !== false }; } catch { return { prefer: 'sub', emptyFree: true }; } }
+function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ prefer: state.prefer, emptyFree: state.emptyFree })); } catch {} }
+
+const state = {
+  roster: null,      // { classes, dates, notices, fileName, savedAt }
+  shifts: null,      // { byDate, dates, count, fileName }
+  day: '',
+  out: {},           // date -> Set of instructor names marked out
+  pins: {},          // date -> { lessonId: optionKey | 'none' }
+  siteEdits: {},     // date -> { name: { here, start, end } }
+  verifiedAll: {},   // date -> true when the user confirmed all capacities
+  highlight: new Set(),
+  editing: null,
+  ...readPrefs()
+};
+
+function lessonForDate(c, date) {
+  const obs = c.observations[date], ov = c.overrides[date] || {};
+  const expected = ov.expected ?? obs?.expected ?? c.registered ?? 0;
+  const capacity = 'capacity' in ov ? ov.capacity : c.capacity;
+  const tally = obs?.tally || { present: 0, pending: 0, flagged: 0, excused: 0, notEnrolled: 0 };
+  return {
+    id: c.id, key: lessonKey(c), title: c.title, instructor: c.instructor, start: c.start, end: c.end,
+    expected, capacity, capacityDate: c.capacityDate,
+    capacityValid: !!(ov.capacityVerified || state.verifiedAll[date] || c.capacityDate === date),
+    capacityVerified: !!ov.capacityVerified,
+    canceled: ov.canceled ?? obs?.nonrunning ?? false,
+    out: tally.flagged + tally.excused, tally, ambiguous: obs?.ambiguous || 0,
+    teacherStatus: obs?.teacher || 'unknown', manual: Object.keys(ov).length > 0,
+    assessment: isAssessment(c.title), private: isPrivate(c.title), mergeable: isMergeable(c.title)
+  };
+}
+// Empty assessment slots are not lessons: they are hidden and never block an instructor.
+function dailyLessons(date = state.day) {
+  if (!state.roster) return [];
+  return state.roster.classes.filter(c => c.observations[date]).map(c => lessonForDate(c, date)).filter(l => !(l.assessment && l.expected === 0));
+}
+
+function dayModel(date = state.day) {
+  const lessons = dailyLessons(date);
+  const active = lessons.filter(l => !l.canceled);
+  const shiftDay = state.shifts && state.shifts.byDate[date] ? state.shifts.byDate[date] : null;
+  const named = shiftDay ? shiftDay.filter(s => !s.open) : [];
+  const openShifts = shiftDay ? shiftDay.filter(s => s.open) : [];
+  const people = new Map();
+  for (const l of lessons) {
+    if (!people.has(l.instructor)) people.set(l.instructor, { name: l.instructor, lessons: [], shifts: [] });
+    people.get(l.instructor).lessons.push(l);
+  }
+  for (const s of named) {
+    let p = [...people.values()].find(x => sameName(x.name, s.name));
+    if (!p) { p = { name: s.name, lessons: [], shifts: [] }; people.set(s.name, p); }
+    p.shifts.push([s.start, s.end]);
+  }
+  const list = [...people.values()].map(p => {
+    const act = p.lessons.filter(l => !l.canceled).sort((a, b) => a.start - b.start);
+    return { ...p, active: act, first: act.length ? act[0].start : null, last: act.length ? Math.max(...act.map(l => l.end)) : null, noShift: !!shiftDay && !p.shifts.length };
+  }).sort((a, b) => (a.active.length ? 0 : 1) - (b.active.length ? 0 : 1) || (a.first ?? 9999) - (b.first ?? 9999) || a.name.localeCompare(b.name));
+  return { date, lessons, active, people: list, shiftLoaded: !!state.shifts, shiftDay: !!shiftDay, openShifts };
+}
+
+// Where each instructor can be, as time intervals, and where that came from.
+function windowsFor(model) {
+  const edits = state.siteEdits[model.date] || {};
+  const out = {};
+  for (const p of model.people) {
+    const e = edits[p.name];
+    if (e) { out[p.name] = { here: e.here, intervals: e.here ? [[e.start, e.end]] : [], source: 'edited' }; continue; }
+    if (p.shifts.length) out[p.name] = { here: true, intervals: p.shifts.slice(), source: 'shift' };
+    else if (model.shiftDay) out[p.name] = { here: p.active.length > 0, intervals: p.active.map(l => [l.start, l.end]), source: 'lessons-only' };
+    else out[p.name] = { here: p.active.length > 0, intervals: p.first != null ? [[p.first, p.last]] : [], source: 'estimate' };
+  }
+  return out;
+}
+
+/* =========================================================================
+   Coverage planner
+   ========================================================================= */
+const SEARCH_LIMIT = 180000;
+
+function planCoverage({ lessons, out, windows, prefer = 'sub', emptyFree = true, pins = {}, experience = () => false, shiftDay = false }) {
+  const P = prefer === 'merge' ? 'merge' : 'sub';
+  const active = lessons.filter(l => !l.canceled);
+  const affected = active.filter(l => out.has(l.instructor) && l.expected > 0).sort((a, b) => a.start - b.start || a.title.localeCompare(b.title));
+  const zero = active.filter(l => out.has(l.instructor) && l.expected === 0);
+  const others = active.filter(l => !out.has(l.instructor));
+  const covers = (name, s, e) => (windows[name]?.intervals || []).some(([a, b]) => a <= s && b >= e);
+  const busy = (name, s, e) => others.some(x => x.instructor === name && overlaps(x.start, x.end, s, e) && (!emptyFree || x.expected > 0));
+  const candidates = Object.keys(windows).filter(n => !out.has(n) && windows[n].here);
+
+  const options = affected.map(task => {
+    const list = [];
+    for (const name of candidates) {
+      if (!covers(name, task.start, task.end) || busy(name, task.start, task.end)) continue;
+      list.push({ key: 'sub:' + name, type: 'sub', name, levelExperience: experience(name, task.title), source: windows[name].source, interval: windows[name].intervals.find(([a, b]) => a <= task.start && b >= task.end) });
+    }
+    if (task.mergeable) for (const host of others) {
+      if (!host.mergeable || host.title.toLowerCase() !== task.title.toLowerCase() || host.start !== task.start || host.end !== task.end || host.expected === 0) continue;
+      if (windows[host.instructor] && !windows[host.instructor].here) continue;
+      if (!Number.isFinite(host.capacity)) continue;
+      const available = host.capacity - host.expected;
+      if (available < task.expected) continue;
+      list.push({ key: 'merge:' + host.id, type: 'merge', name: host.instructor, hostId: host.id, host, capacityValid: host.capacityValid, available });
+    }
+    return { task, options: list };
+  });
+
+  // Rank substitutes. First: who can cover the most of these lessons on their own.
+  // Tie: who has had fewer kids so far (their own classes that end before the first lesson
+  // they would take over). Last: name, so results are stable.
+  const canCover = {}, kidsSoFar = {};
+  for (const name of candidates) {
+    const mine = options.filter(o => o.options.some(x => x.type === 'sub' && x.name === name)).map(o => o.task).sort((a, b) => a.end - b.end);
+    let n = 0, lastEnd = -Infinity;
+    for (const t of mine) if (t.start >= lastEnd) { n++; lastEnd = t.end; }
+    canCover[name] = n;
+    const firstStart = mine.length ? Math.min(...mine.map(t => t.start)) : Infinity;
+    kidsSoFar[name] = others.filter(x => x.instructor === name && x.end <= firstStart).reduce((a, x) => a + x.expected, 0);
+  }
+  const ranked = candidates.filter(n => canCover[n] > 0).sort((a, b) => canCover[b] - canCover[a] || kidsSoFar[a] - kidsSoFar[b] || a.localeCompare(b));
+  const rank = Object.fromEntries(ranked.map((n, i) => [n, i]));
+  for (const o of options) {
+    o.options.sort((a, b) => (a.type === P ? 0 : 1) - (b.type === P ? 0 : 1)
+      || (a.type === 'sub' && b.type === 'sub' ? rank[a.name] - rank[b.name] : 0)
+      || (b.capacityValid ? 1 : 0) - (a.capacityValid ? 1 : 0)
+      || a.name.localeCompare(b.name));
+    o.options.forEach(x => { if (x.type === 'sub') { x.canCover = canCover[x.name]; x.kidsSoFar = kidsSoFar[x.name]; } });
+  }
+
+  // Best plan, compared in this order:
+  //   1. most lessons covered  2. most with confirmed capacity  3. most of the preferred kind (sub or merge)
+  //   4. as many lessons as possible to the top-ranked substitute, then the next, and so on.
+  const better = (a, b) => { for (let k = 0; k < a.length; k++) if (a[k] !== b[k]) return a[k] > b[k]; return false; };
+  let best = null, visits = 0, truncated = false;
+  const chosen = [], subsBusy = [], merged = {};
+  function recurse(i, covered) {
+    if (visits++ > SEARCH_LIMIT) { truncated = true; return; }
+    if (i === options.length) {
+      const counts = new Array(ranked.length).fill(0);
+      let confirmed = 0, pref = 0;
+      for (const p of chosen) if (p) {
+        if (p.type === 'sub' || p.capacityValid) confirmed++;
+        if (p.type === P) pref++;
+        if (p.type === 'sub') counts[rank[p.name]]++;
+      }
+      const v = [covered, confirmed, pref, ...counts];
+      if (!best || better(v, best.v)) best = { v, picks: chosen.slice() };
+      return;
+    }
+    if (best && covered + (options.length - i) < best.v[0]) return;
+    const { task, options: opts } = options[i];
+    const pin = pins[task.id];
+    const tryOpts = pin === 'none' ? [] : (pin && opts.some(o => o.key === pin) ? opts.filter(o => o.key === pin) : opts);
+    for (const o of tryOpts) {
+      if (o.type === 'sub' && subsBusy.some(x => x.name === o.name && overlaps(x.start, x.end, task.start, task.end))) continue;
+      if (o.type === 'merge' && (merged[o.hostId] || 0) + task.expected > o.available) continue;
+      if (o.type === 'sub') subsBusy.push({ name: o.name, start: task.start, end: task.end }); else merged[o.hostId] = (merged[o.hostId] || 0) + task.expected;
+      chosen.push(o);
+      recurse(i + 1, covered + 1);
+      chosen.pop();
+      if (o.type === 'sub') subsBusy.pop(); else merged[o.hostId] -= task.expected;
+    }
+    // Leaving a lesson uncovered is always a possible branch, so a pinned choice that
+    // conflicts with another pin never wipes out the whole plan.
+    chosen.push(null); recurse(i + 1, covered); chosen.pop();
+  }
+  recurse(0, 0);
+  if (!best) best = { picks: options.map(() => null) };
+
+  const results = options.map(({ task, options: opts }, i) => {
+    const pick = best.picks[i] || null;
+    const status = !pick ? 'none' : pick.type === 'sub' ? 'sub' : pick.capacityValid ? 'merge' : 'review';
+    return { task, pick, status, options: opts, pinned: task.id in pins, reason: pick ? '' : explain(task, opts, i) };
+  });
+
+  function explain(task, opts, i) {
+    if (pins[task.id] === 'none') return 'You chose to leave this uncovered.';
+    if (opts.length) {
+      const taken = opts.filter(o => o.type === 'sub').map(o => {
+        const j = best.picks.findIndex((p, k) => k !== i && p && p.type === 'sub' && p.name === o.name && overlaps(options[k].task.start, options[k].task.end, task.start, task.end));
+        return j >= 0 ? `${o.name} is already covering ${options[j].task.title} at ${clockText(options[j].task.start)}` : '';
+      }).filter(Boolean);
+      return (taken[0] || 'Every option is already used elsewhere in this plan') + '.';
+    }
+    const parts = [];
+    const onSite = candidates.filter(n => covers(n, task.start, task.end));
+    if (!onSite.length) parts.push(shiftDay ? `no swim instructor's shift covers ${range(task.start, task.end)}` : `no one else is on site for all of ${range(task.start, task.end)}`);
+    else parts.push(onSite.length === 1 ? `${onSite[0]} is teaching then` : `all ${onSite.length} instructors on site are teaching then`);
+    if (task.private) parts.push("private lessons can't be merged");
+    else if (!task.mergeable) parts.push("this class type isn't merged automatically");
+    else {
+      const same = others.filter(x => x.title.toLowerCase() === task.title.toLowerCase() && x.start === task.start && x.end === task.end);
+      if (!same.length) parts.push(`no other ${task.title} runs at ${clockText(task.start)}`);
+      else {
+        const x = same[0];
+        const spare = Number.isFinite(x.capacity) ? Math.max(0, x.capacity - x.expected) : null;
+        parts.push(spare === null ? `${x.instructor}'s ${task.title} has no capacity listed` : spare === 0 ? `${x.instructor}'s ${task.title} is full` : `${x.instructor}'s ${task.title} only has ${plural(spare, 'open seat')}`);
+      }
+    }
+    const s = parts.length === 2 ? parts.join(', and ') : parts.join(', ');
+    return s.charAt(0).toUpperCase() + s.slice(1) + '.';
+  }
+  return { results, zero, truncated, visits };
+}
+
+function currentPlan(model) {
+  const out = state.out[model.date];
+  if (!out || !out.size) return null;
+  const windows = windowsFor(model);
+  const exp = (name, title) => state.roster.classes.some(c => sameName(c.instructor, name) && c.title.toLowerCase() === title.toLowerCase());
+  return { windows, ...planCoverage({ lessons: model.lessons, out, windows, prefer: state.prefer, emptyFree: state.emptyFree, pins: state.pins[model.date] || {}, experience: exp, shiftDay: model.shiftDay }) };
+}
+
+/* =========================================================================
+   "Needs a look" — things in the roster worth checking
+   ========================================================================= */
+function attentionItems(model) {
+  const items = [], date = model.date, outSet = state.out[date] || new Set();
+  const nameList = arr => arr.length <= 2 ? arr.join(' and ') : arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+  if (state.roster.notices.length) items.push({ tone: 'warn', title: `${state.roster.notices[0]} earlier classes were collapsed when you saved`, body: 'Expand "Show passed classes" in PIVVIT and save again if you need them.' });
+  for (const p of model.people) {
+    if (outSet.has(p.name) || !p.active.length) continue;
+    if (p.active.some(l => l.teacherStatus === 'flagged' || l.teacherStatus === 'excused')) items.push({ tone: 'warn', title: `${p.name} is marked absent in PIVVIT`, body: 'Mark them out to plan coverage for their lessons.', ids: p.active.map(l => l.id), action: { label: 'Mark out', type: 'out', name: p.name } });
+  }
+  for (const p of model.people) {
+    const act = p.active;
+    for (let i = 0; i < act.length; i++) for (let j = i + 1; j < act.length; j++) {
+      const a = act[i], b = act[j];
+      if (!overlaps(a.start, a.end, b.start, b.end)) continue;
+      const same = a.title === b.title;
+      items.push({ tone: 'warn', title: same ? `${p.name} has two ${a.title} classes at ${clockText(a.start)}` : `${p.name} has overlapping lessons at ${clockText(Math.max(a.start, b.start))}`, body: same ? `${plural(a.expected + b.expected, 'kid')} between them. Two lanes, or a double booking?` : `${a.title} (${range(a.start, a.end)}) and ${b.title} (${range(b.start, b.end)}).`, ids: [a.id, b.id] });
+    }
+  }
+  if (model.shiftDay) {
+    const noShift = model.people.filter(p => p.noShift && p.active.length);
+    for (const p of noShift) items.push({ tone: 'warn', title: `${p.name} has ${plural(p.active.length, 'lesson')} but no shift in your schedule file`, body: `They aren't listed as a swim instructor on ${dateShort(date)}. Confirm they're working.`, ids: p.active.map(l => l.id) });
+    for (const p of model.people) {
+      if (!p.shifts.length) continue;
+      for (const l of p.active) {
+        const inside = p.shifts.some(([a, b]) => a <= l.start && b >= l.end);
+        if (inside) continue;
+        const s = p.shifts[0];
+        items.push({ tone: 'warn', title: l.start < s[0] ? `${p.name}'s ${clockText(l.start)} ${l.title} starts before their ${clockText(s[0])} shift` : `${p.name}'s ${clockText(l.start)} ${l.title} runs past their shift`, body: `Shift: ${range(s[0], s[1])}.`, ids: [l.id] });
+      }
+    }
+  }
+  const emptied = model.active.filter(l => l.expected === 0 && l.out > 0);
+  if (emptied.length) items.push({ tone: 'info', title: `${plural(emptied.length, 'class has', 'classes have')} no kids left after absences`, body: nameList(emptied.map(l => `${l.instructor.split(' ')[0]}'s ${l.title} at ${clockShort(l.start)}`)) + (state.emptyFree ? '. Those instructors are free then.' : '.'), ids: emptied.map(l => l.id) });
+  const lone = model.active.filter(l => !l.private && !l.assessment && l.expected === 1 && l.out > 0);
+  for (const l of lone.slice(0, 3)) items.push({ tone: 'info', title: `${l.instructor.split(' ')[0]}'s ${l.title} at ${clockShort(l.start)} is down to 1 kid`, body: `${l.out} of ${l.out + 1} reported out.`, ids: [l.id] });
+  if (lone.length > 3) items.push({ tone: 'info', title: `${lone.length - 3} more classes are down to 1 kid`, body: 'Check the board for classes with one filled dot.', ids: lone.slice(3).map(l => l.id) });
+  if (model.openShifts.length) items.push({ tone: 'info', title: `${plural(model.openShifts.length, 'open swim instructor shift')} in your schedule file`, body: nameList(model.openShifts.map(s => range(s.start, s.end))) + '. Nobody is assigned yet.' });
+  const ambiguous = model.active.reduce((a, l) => a + l.ambiguous, 0);
+  if (ambiguous) items.push({ tone: 'info', title: `${plural(ambiguous, 'kid has', 'kids have')} an attendance mark the app doesn't recognize`, body: "They're counted as expected. Check their row in PIVVIT if it matters.", ids: model.active.filter(l => l.ambiguous).map(l => l.id) });
+  const staleCaps = model.active.filter(l => !l.capacityValid && l.capacityDate);
+  if (staleCaps.length) items.push({ tone: 'warn', title: `${plural(staleCaps.length, 'class capacity is', 'class capacities are')} from another date`, body: `PIVVIT showed them for ${dateShort(staleCaps[0].capacityDate)}. Merges into these classes are marked "check capacity".`, ids: staleCaps.map(l => l.id), action: { label: "I've checked them", type: 'verifyAll' } });
+  else if (model.active.length) items.push({ tone: 'ok', title: 'Class capacities are for this date', body: 'Merges can rely on them.' });
+  if (!state.shifts) items.push({ tone: 'info', title: 'Add your schedule export for better suggestions', body: "With swim instructor shift times, the planner knows who's on site between lessons.", action: { label: 'Import shifts', type: 'import' } });
+  return items;
+}
+
+/* =========================================================================
+   Rendering
+   ========================================================================= */
+function savedText(ts) {
+  if (!ts) return 'saved file';
+  const d = new Date(ts), now = new Date();
+  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  return d.toDateString() === now.toDateString() ? 'saved ' + time : 'saved ' + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ', ' + time;
+}
+
+function renderSidebar() {
+  const r = state.roster, s = state.shifts;
+  $('sidebar').innerHTML = `
+    <a class="brand" href="./lesson-coverage.html"><span class="brand-mark">${icon('waves')}</span>Aquatics Studio</a>
+    <nav class="nav" aria-label="Workspaces">
+      <a class="nav-item" href="./lesson-coverage.html" aria-current="page">${icon('users')}Lesson coverage</a>
+      <a class="nav-item" href="./index.html">${icon('calendar')}Staff schedule${icon('external', ' style="margin-left:auto;color:var(--text-3)"')}</a>
+    </nav>
+    <div class="nav">
+      <div class="nav-label">Files in use</div>
+      <div class="file-card">
+        <div style="display:flex;gap:8px;align-items:center">${icon('file', ' style="color:var(--text-3)"')}<div style="min-width:0">
+          <div class="file-name" title="${h(r ? r.fileName : '')}">${r ? h(r.fileName) : 'No roster yet'}</div>
+          <div class="file-meta">${r ? 'PIVVIT roster · ' + h(savedText(r.savedAt)) : 'Saved PIVVIT page (.html)'}</div></div></div>
+        <button class="btn btn-sm" type="button" data-act="import-roster">${icon('upload')}${r ? 'Import newer save' : 'Import roster'}</button>
+      </div>
+      <div class="file-card" style="margin-top:8px">
+        <div style="display:flex;gap:8px;align-items:center">${icon('file', ' style="color:var(--text-3)"')}<div style="min-width:0">
+          <div class="file-name" title="${h(s ? s.fileName : '')}">${s ? h(s.fileName) : 'Shift times (optional)'}</div>
+          <div class="file-meta">${s ? 'Swim instructor shifts only · ' + plural(s.dates.length, 'day') : 'Staff schedule export (.xlsx)'}</div></div></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-sm" type="button" data-act="import-shifts">${icon('upload')}${s ? 'Import newer export' : 'Import shifts'}</button>
+          ${s ? '<button class="btn btn-sm btn-ghost" type="button" data-act="remove-shifts">Remove</button>' : ''}
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-foot">${icon('lock')}Files stay in this browser</div>`;
+}
+
+function renderEmpty() {
+  $('page').innerHTML = `
+    <div class="empty">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="page-kicker">Lesson coverage</div>
+        <h1>Plan coverage from a saved PIVVIT roster</h1>
+        <p class="empty-lead">See every instructor's lessons and expected kids, and get a coverage plan when someone calls out. Nothing leaves this browser.</p>
+      </div>
+      <section class="panel"><div class="panel-body" style="display:flex;flex-direction:column;gap:16px">
+        <h2>Save the roster from PIVVIT</h2>
+        <ol class="steps">
+          <li><span>Open the lesson roster and pick the day. Wait for it to finish loading, and expand any <b>Show passed classes</b> sections you need.</span></li>
+          <li><span>Press <span class="kbd">Ctrl</span> + <span class="kbd">S</span> (<span class="kbd">⌘</span> + <span class="kbd">S</span> on a Mac) and save the page as HTML.</span></li>
+          <li><span>Drop that file below. You can also add your staff schedule export (.xlsx) so the planner knows each swim instructor's shift.</span></li>
+        </ol>
+      </div></section>
+      <div class="dropzone" id="dropzone">
+        ${icon('upload', ' style="width:28px;height:28px;color:var(--accent)"')}
+        <strong>Drop your PIVVIT save here</strong>
+        <span class="muted">Add the schedule export too, if you have it. Drop both at once or one at a time.</span>
+        <div class="toolbar" style="justify-content:center">
+          <button class="btn btn-primary" type="button" data-act="import-roster">${icon('file')}Choose roster file</button>
+          <button class="btn" type="button" data-act="import-shifts">${icon('calendar')}Add shift times</button>
+        </div>
+      </div>
+      <p class="hint">Saved rosters contain children's names. Keep them on approved devices and never upload them to GitHub. The app reads class details only and does not keep student names.</p>
+    </div>`;
+}
+
+function lessonTile(l, extra) {
+  const dots = [];
+  for (let i = 0; i < Math.min(l.expected, 24); i++) dots.push('<i class="dot"></i>');
+  for (let i = 0; i < Math.min(l.out, 12); i++) dots.push('<i class="dot dot-out"></i>');
+  let cls = l.canceled ? 'lesson-out' : l.expected === 0 ? 'lesson-empty' : l.private ? 'lesson-private' : '';
+  let note = l.canceled ? 'Canceled or moved' : l.expected === 0 ? (l.out ? `Empty: ${l.out} reported out` : 'No kids') : '';
+  let noteStyle = '';
+  if (extra) { cls = extra.cls; note = extra.note; noteStyle = extra.noteStyle || ''; }
+  if (state.highlight.has(l.id)) cls += ' hl';
+  const count = l.assessment ? `${l.expected} booked` : `${l.expected}/${l.capacity ?? '?'}`;
+  const label = `${l.title}, ${range(l.start, l.end)}, ${l.instructor}: ${l.expected} expected${l.out ? ', ' + l.out + ' reported out' : ''}${note ? '. ' + note : ''}. Edit`;
+  return `<button type="button" class="lesson ${cls}" data-lesson="${h(l.id)}" aria-label="${h(label)}">
+    <span class="lesson-top"><span class="lesson-title">${h(l.title)}</span><span class="lesson-count">${h(count)}</span></span>
+    ${dots.length ? `<span class="dots" aria-hidden="true">${dots.join('')}</span>` : ''}
+    ${l._offTime ? `<span class="lesson-time">Starts ${h(clockShort(l.start))}</span>` : ''}
+    ${note ? `<span class="lesson-time" style="${noteStyle}">${h(note)}</span>` : ''}
+  </button>`;
+}
+
+function slotColumns(lessons) {
+  const starts = [...new Set(lessons.map(l => l.start))].sort((a, b) => a - b);
+  const cols = [];
+  for (const s of starts) {
+    const last = cols[cols.length - 1];
+    if (last && s - last.first <= 10) last.starts.push(s); else cols.push({ first: s, starts: [s] });
+  }
+  return cols.map(c => {
+    const counts = {};
+    lessons.filter(l => c.starts.includes(l.start)).forEach(l => counts[l.start] = (counts[l.start] || 0) + 1);
+    const label = +Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0] - b[0])[0][0];
+    return { label, starts: c.starts };
+  });
+}
+
+function renderBoard(model, plan) {
+  const cols = slotColumns(model.lessons);
+  const outSet = state.out[model.date] || new Set();
+  const byTask = {};
+  const covering = {};
+  if (plan) for (const r of plan.results) {
+    byTask[r.task.id] = r;
+    if (r.pick && r.pick.type === 'sub') covering[r.pick.name] = (covering[r.pick.name] || 0) + 1;
+  }
+  const head = `<div class="sg-row" role="row"><div class="sg-head" role="columnheader">Instructor</div>${cols.map((c, i) => `<div class="sg-head" role="columnheader">${h(clockShort(c.label))}${i === 0 || clockText(c.label).slice(-2) !== clockText(cols[i - 1].label).slice(-2) ? ' ' + clockText(c.label).slice(-2) : ''}</div>`).join('')}</div>`;
+  const rows = model.people.map(p => {
+    const isOut = outSet.has(p.name);
+    const kids = p.active.reduce((a, l) => a + l.expected, 0);
+    let meta = p.active.length ? `${plural(p.active.length, 'lesson')} · ${plural(kids, 'kid')}` : (p.shifts.length ? 'On shift · no lessons' : 'No lessons');
+    let metaStyle = '';
+    if (p.noShift && p.active.length) { meta = `${plural(p.active.length, 'lesson')} · no shift on file`; metaStyle = 'color:var(--warn);font-weight:600'; }
+    if (covering[p.name]) meta = (p.active.length ? plural(p.active.length, 'lesson') : 'On shift') + ` · covering ${covering[p.name]}`;
+    const cells = cols.map(c => {
+      const here = p.lessons.filter(l => c.starts.includes(l.start)).sort((a, b) => a.start - b.start);
+      return `<div class="sg-cell" role="cell">${here.map(l => {
+        l._offTime = l.start !== c.label;
+        const r = byTask[l.id];
+        if (isOut && !l.canceled) {
+          if (l.expected === 0) return lessonTile(l, { cls: 'lesson-empty', note: 'No kids to move' });
+          if (r) {
+            if (r.status === 'sub') return lessonTile(l, { cls: 'lesson-covered', note: 'To ' + r.pick.name, noteStyle: 'color:var(--ok);font-weight:600' });
+            if (r.status === 'merge') return lessonTile(l, { cls: 'lesson-covered', note: 'Merge into ' + r.pick.name, noteStyle: 'color:var(--ok);font-weight:600' });
+            if (r.status === 'review') return lessonTile(l, { cls: 'lesson-needs', note: 'Merge, check capacity', noteStyle: 'color:var(--warn);font-weight:600' });
+            return lessonTile(l, { cls: 'lesson-uncovered', note: 'Uncovered', noteStyle: 'color:var(--danger);font-weight:600' });
+          }
+        }
+        return lessonTile(l);
+      }).join('')}</div>`;
+    }).join('');
+    const btn = isOut
+      ? `<button class="btn btn-sm" type="button" data-out="${h(p.name)}">Undo</button>`
+      : (p.active.length ? `<button class="btn btn-ghost btn-sm icon-btn" type="button" data-out="${h(p.name)}" aria-label="Mark ${h(p.name)} out" title="Mark out">${icon('userX')}</button>` : '');
+    return `<div class="sg-row${isOut ? ' sg-row-out' : ''}" role="row">
+      <div class="sg-name" role="rowheader"><div class="sg-name-top"><strong>${h(p.name)}</strong>${isOut ? '<span class="badge badge-danger">Out</span>' : ''}${btn}</div><small style="${metaStyle}">${h(meta)}</small></div>
+      ${cells}</div>`;
+  }).join('');
+  const legend = plan
+    ? '<span><i class="sw" style="background:var(--ok-soft);border:1px solid #bfe0cc"></i>Covered</span><span><i class="sw" style="background:var(--warn-soft);border:1px solid var(--warn-border)"></i>Check capacity</span><span><i class="sw" style="background:var(--danger-soft);border:1px solid var(--danger-border)"></i>Uncovered</span>'
+    : '<span><i class="sw" style="background:#eef3f7;border:1px solid #d4e0ea"></i>Private</span><span><i class="sw" style="background:#fff;border:1px dashed var(--border-strong)"></i>No kids</span>';
+  return `<section class="panel board-panel" aria-labelledby="board-h">
+    <div class="panel-head" style="flex-wrap:wrap">
+      <div><h2 id="board-h">Lessons by instructor</h2><div class="panel-sub">${plan ? "Out instructors' lessons show where each class goes." : 'Click a lesson to adjust its count. Use the icon beside a name to mark them out.'}</div></div>
+      <div class="legend"><span><i class="dot"></i>Expected</span><span><i class="dot dot-out"></i>Reported out</span>${legend}</div>
+    </div>
+    <div class="table-wrap"><div class="slotgrid" role="table" aria-label="Lessons by instructor and time" style="--slots:${cols.length};min-width:${172 + cols.length * 116}px">${head}${rows}</div></div>
+  </section>`;
+}
+
+function renderPlan(model, plan) {
+  const outNames = [...state.out[model.date]];
+  const res = plan.results;
+  const n = s => res.filter(r => r.status === s).length;
+  const covered = n('sub') + n('merge'), review = n('review'), none = n('none');
+  const kids = res.reduce((a, r) => a + r.task.expected, 0);
+  const span = res.length ? range(Math.min(...res.map(r => r.task.start)), Math.max(...res.map(r => r.task.end))) : '';
+  const subsUsed = [...new Set(res.filter(r => r.status === 'sub').map(r => r.pick))];
+  const unqualified = [...new Set(res.filter(r => r.status === 'sub' && !r.pick.levelExperience).map(r => r.pick.name))];
+  const source = model.shiftDay ? 'Swim instructor shifts from your schedule file are used to see who is on site.' : (model.shiftLoaded ? `Your schedule file has no shifts for ${dateShort(model.date)}, so on-site times are estimated from lessons.` : 'On-site times are estimated from each instructor\'s first and last lesson. Import shift times for better suggestions.');
+  const items = res.map(r => {
+    const t = r.task;
+    let body = '';
+    if (r.status === 'sub') {
+      const why = r.pick.source === 'shift' ? `On shift ${range(r.pick.interval[0], r.pick.interval[1])} with no lesson then.` : r.pick.source === 'edited' ? `On site ${range(r.pick.interval[0], r.pick.interval[1])} (edited) with no lesson then.` : 'Free between their own lessons (estimated).';
+      body = `<div class="plan-answer" style="display:flex;align-items:center;gap:6px">${icon('ok', ' style="color:var(--ok)"')}<span><strong style="color:var(--text)">${h(r.pick.name)}</strong> substitutes</span></div><div class="plan-why">${h(why)}${r.pick.levelExperience ? '' : ` Hasn't taught ${h(t.title)} in this roster.`}</div>`;
+    } else if (r.status === 'merge' || r.status === 'review') {
+      const hst = r.pick.host;
+      body = `<div class="plan-answer" style="display:flex;align-items:center;gap:6px">${icon(r.status === 'merge' ? 'ok' : 'warn', ` style="color:var(--${r.status === 'merge' ? 'ok' : 'warn'})"`)}<span>Merge into <strong style="color:var(--text)">${h(hst.instructor)}'s ${h(hst.title)}</strong></span></div><div class="plan-why">${plural(t.expected, 'kid')} join ${hst.expected}, making ${hst.expected + t.expected} of ${hst.capacity}.${r.status === 'review' ? ` PIVVIT listed this capacity for ${h(dateShort(hst.capacityDate))}. Check it before merging.` : ''}</div>`;
+    } else {
+      body = `<div class="plan-answer" style="display:flex;align-items:center;gap:6px;color:var(--danger)">${icon('xCircle')}<strong>Uncovered</strong></div><div class="plan-why">${h(r.reason)}</div>`;
+    }
+    const choices = r.options.map(o => `<option value="${h(o.key)}"${r.pick && r.pick.key === o.key ? ' selected' : ''}>${o.type === 'sub' ? h(o.name) + ' substitutes' : 'Merge into ' + h(o.name) + "'s class"}${o.type === 'merge' && !o.capacityValid ? ' (check capacity)' : ''}</option>`).join('');
+    const select = r.options.length ? `<div class="plan-actions"><label class="sr-only" for="pick-${h(t.id)}">Choose coverage for ${h(t.title)} at ${h(clockText(t.start))}</label><select class="select" id="pick-${h(t.id)}" data-pick="${h(t.id)}" style="height:30px">${choices}<option value="none"${!r.pick ? ' selected' : ''}>Leave uncovered</option>${r.pinned ? '<option value="auto">Let the planner choose</option>' : ''}</select></div>` : '';
+    return `<div class="plan-item" style="${r.status === 'none' ? 'background:#fffafa' : r.status === 'review' ? 'background:#fffaf0' : ''}">
+      <div class="plan-line"><span class="plan-what">${h(t.title)} · ${plural(t.expected, 'kid')}${outNames.length > 1 ? ` <span class="muted" style="font-weight:450">(${h(t.instructor)})</span>` : ''}</span><span class="plan-time">${h(range(t.start, t.end))}</span></div>
+      ${body}${select}</div>`;
+  }).join('');
+  const windows = plan.windows;
+  const siteRows = model.people.filter(p => !outNames.includes(p.name)).map(p => {
+    const w = windows[p.name] || { here: false, intervals: [], source: 'estimate' };
+    const iv = w.intervals.length ? [Math.min(...w.intervals.map(x => x[0])), Math.max(...w.intervals.map(x => x[1]))] : [p.first ?? 540, p.last ?? 780];
+    const src = { shift: 'From shift file', 'lessons-only': 'No shift on file: lessons only', estimate: 'Estimated from lessons', edited: 'Edited' }[w.source];
+    return `<div class="site-row"><label class="check" style="margin:0"><input type="checkbox" data-site-here="${h(p.name)}"${w.here ? ' checked' : ''}><span style="font-weight:580;color:var(--text)">${h(p.name)}</span></label>
+      <span class="hint">${h(src)}</span>
+      <span style="display:flex;align-items:center;gap:6px"><input class="input" type="time" aria-label="${h(p.name)} on site from" data-site-start="${h(p.name)}" value="${timeInput(iv[0])}"><span class="muted">to</span><input class="input" type="time" aria-label="${h(p.name)} on site until" data-site-end="${h(p.name)}" value="${timeInput(iv[1])}"></span>
+      ${w.source === 'edited' ? `<button class="btn btn-sm btn-ghost" type="button" data-site-reset="${h(p.name)}">Reset</button>` : '<span></span>'}</div>`;
+  }).join('');
+  return `<section class="panel plan-panel" aria-labelledby="plan-h" style="border-color:var(--border-strong)">
+    <div class="panel-head" style="flex-wrap:wrap;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h2 id="plan-h">${h(nameJoin(outNames))} ${outNames.length === 1 ? 'is' : 'are'} out</h2>
+          ${covered ? `<span class="badge badge-ok">${covered} covered</span>` : ''}${review ? `<span class="badge badge-warn">${review} to check</span>` : ''}${none ? `<span class="badge badge-danger">${none} uncovered</span>` : ''}</div>
+        <div class="panel-sub" style="margin:0">${res.length ? `${plural(res.length, 'lesson')} and ${plural(kids, 'kid')}, ${h(span)}. ` : 'No lessons with kids to move. '}${plan.zero.length ? `${plural(plan.zero.length, 'empty lesson')} need${plan.zero.length === 1 ? 's' : ''} nothing. ` : ''}Suggestions only; nothing changes in PIVVIT.</div>
+      </div>
+      <div class="toolbar no-print">
+        <div class="seg" role="group" aria-label="When both work"><button type="button" data-prefer="sub" aria-pressed="${state.prefer === 'sub'}">Prefer free instructor</button><button type="button" data-prefer="merge" aria-pressed="${state.prefer === 'merge'}">Prefer merging</button></div>
+        <button class="btn" type="button" data-act="copy-plan">${icon('copy')}Copy plan</button>
+        <button class="btn" type="button" data-act="print-plan">${icon('print')}Print plan</button>
+        <button class="btn btn-ghost" type="button" data-act="clear-out">Clear call-outs</button>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:16px 20px 4px">
+      <div class="callout">${icon(model.shiftDay ? 'calendar' : 'info', ' style="margin-top:2px"')}<div>${h(source)}</div></div>
+      ${unqualified.length ? `<div class="callout callout-warn">${icon('warn', ' style="margin-top:2px"')}<div>${h(nameJoin(unqualified))} ${unqualified.length === 1 ? "isn't" : "aren't"} teaching some of these levels elsewhere in this roster. Confirm they're qualified before you assign them.</div></div>` : ''}
+      ${plan.truncated ? `<div class="callout callout-danger">${icon('warn', ' style="margin-top:2px"')}<div>This day has too many combinations to check them all. The plan is a good one but may not be the best possible, so review the options.</div></div>` : ''}
+    </div>
+    ${res.length ? `<div class="plan plan-grid">${items}</div>` : ''}
+    <details class="site no-print"><summary>Who's on site (${model.people.filter(p => !outNames.includes(p.name) && (windows[p.name] || {}).here).length})</summary>
+      <div class="hint" style="padding:0 20px 8px">Untick anyone who isn't here, or change their hours. Changes only affect this plan.</div>
+      ${siteRows}
+      <div style="padding:10px 20px"><label class="check" style="margin:0"><input type="checkbox" data-act="empty-free"${state.emptyFree ? ' checked' : ''}> Instructors are free during classes with no kids</label></div>
+    </details>
+  </section>`;
+}
+const nameJoin = arr => arr.length <= 2 ? arr.join(' and ') : arr.slice(0, -1).join(', ') + ' and ' + arr[arr.length - 1];
+
+function renderWorkspace() {
+  const model = dayModel();
+  const plan = currentPlan(model);
+  const r = state.roster, idx = r.dates.indexOf(state.day);
+  const active = model.active;
+  const kids = active.reduce((a, l) => a + l.expected, 0);
+  const outKids = active.reduce((a, l) => a + l.out, 0);
+  const teaching = model.people.filter(p => p.active.length);
+  const span = active.length ? range(Math.min(...active.map(l => l.start)), Math.max(...active.map(l => l.end))) : '';
+  const present = active.reduce((a, l) => a + l.tally.present, 0), pending = active.reduce((a, l) => a + l.tally.pending, 0);
+  const instIn = active.filter(l => l.teacherStatus === 'present').length;
+  const checkHint = present + pending > 0 ? `Check-ins as of the ${savedText(r.savedAt).replace('saved ', '')} save: ${present} of ${kids} kids, ${instIn} of ${active.length} instructor check-ins. Import a newer save to refresh.` : (state.day > todayIso() ? 'Future date: counts come from current registrations and absences reported so far.' : '');
+  const stale = state.day === todayIso() && r.savedAt && Date.now() - r.savedAt > 3 * 3600e3;
+  const outSet = state.out[state.day] || new Set();
+  const outMenu = teaching.filter(p => !outSet.has(p.name)).map(p => `<button type="button" data-out="${h(p.name)}"><span>${h(p.name)}</span><small>${plural(p.active.length, 'lesson')}</small></button>`).join('') || '<div class="hint" style="padding:8px">Everyone is already marked out.</div>';
+  const items = attentionItems(model);
+  const toneIcon = { warn: 'warn', info: 'info', ok: 'ok' };
+  $('page').innerHTML = `
+    <div class="page-head">
+      <div>
+        <div class="page-kicker">Lesson coverage</div>
+        <div class="page-title">
+          <button class="btn icon-btn" type="button" data-day="-1" aria-label="Previous date"${idx <= 0 ? ' disabled' : ''}>${icon('left')}</button>
+          <h1>${h(dateTitle(state.day))}</h1>
+          <button class="btn icon-btn" type="button" data-day="1" aria-label="Next date"${idx >= r.dates.length - 1 ? ' disabled' : ''}>${icon('right')}</button>
+          ${r.dates.length > 1 ? `<label class="sr-only" for="dayPick">Choose date</label><select class="select no-print" id="dayPick">${r.dates.map(d => `<option value="${d}"${d === state.day ? ' selected' : ''}>${h(dateShort(d))}${d === todayIso() ? ' (today)' : ''}</option>`).join('')}</select>` : ''}
+          ${state.day === todayIso() ? '<span class="badge badge-accent">Today</span>' : ''}
+        </div>
+      </div>
+      <div class="toolbar no-print">
+        <button class="btn toolbar-files" type="button" data-act="import-any">${icon('upload')}Import</button>
+        <button class="btn" type="button" data-act="print-board">${icon('print')}Print board</button>
+        <details class="menu"><summary class="btn btn-primary">${icon('userX')}Mark instructor out</summary><div class="menu-list" role="menu">${outMenu}</div></details>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="summary">
+        <span><b>${kids}</b> ${kids === 1 ? 'kid' : 'kids'} expected</span><span class="sep"></span>
+        <span><b>${outKids}</b> reported out</span><span class="sep"></span>
+        <span><b>${active.length}</b> ${active.length === 1 ? 'lesson' : 'lessons'}</span><span class="sep"></span>
+        <span><b>${teaching.length}</b> ${teaching.length === 1 ? 'instructor' : 'instructors'} teaching${span ? ', ' + h(span) : ''}</span>
+      </div>
+      ${checkHint ? `<div class="hint">${h(checkHint)}</div>` : ''}
+    </div>
+    ${stale ? `<div class="callout callout-warn">${icon('warn', ' style="margin-top:2px"')}<div>This roster was ${h(savedText(r.savedAt))}, over 3 hours ago. Save it again from PIVVIT to pick up new absences.</div></div>` : ''}
+    ${plan ? renderPlan(model, plan) : ''}
+    <section class="panel attn-panel" aria-labelledby="attn-h">
+      <div class="panel-head"><div><h2 id="attn-h">Needs a look</h2><div class="panel-sub">Things in this roster worth checking.</div></div></div>
+      <ul class="attn" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr))">
+        ${items.map((it, i) => `<li${i === 1 ? ' style="border-top:0"' : ''}>${icon(toneIcon[it.tone], ` class="icon tone-${it.tone}"`).replace('class="icon"', '')}<div style="flex:1"><div class="attn-title">${h(it.title)}</div><div>${h(it.body)}</div></div>
+          ${it.action ? `<button class="btn btn-sm" type="button" data-attn="${i}">${h(it.action.label)}</button>` : it.ids && it.ids.length ? `<button class="btn btn-sm" type="button" data-attn="${i}">Show</button>` : ''}</li>`).join('')}
+      </ul>
+    </section>
+    ${model.lessons.length ? renderBoard(model, plan) : `<section class="panel"><div class="panel-body muted">No lessons on ${h(dateShort(state.day))} in this save.</div></section>`}
+    <footer class="hint" style="text-align:center;margin-top:8px">Aquatics Studio · Lesson coverage · Files are read in this browser and never uploaded.</footer>`;
+  state._items = items;
+  state._plan = plan;
+  state._model = model;
+}
+
+function render() {
+  renderSidebar();
+  if (!state.roster) renderEmpty(); else renderWorkspace();
+}
+
+/* =========================================================================
+   Edit modal
+   ========================================================================= */
+function openEditor(id) {
+  const c = state.roster.classes.find(x => x.id === id);
+  if (!c) return;
+  const l = lessonForDate(c, state.day);
+  state.editing = id;
+  const capNote = l.capacityDate && l.capacityDate !== state.day ? `PIVVIT showed this capacity for ${dateShort(l.capacityDate)}, not this date. ` : '';
+  $('modal').innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-h">
+    <div class="panel-head"><div><h2 id="modal-h">${h(l.title)}</h2><div class="panel-sub">${h(l.instructor)} · ${h(range(l.start, l.end))} · ${h(dateShort(state.day))}</div></div>
+      <button class="btn btn-ghost btn-sm icon-btn" type="button" data-act="close-modal" aria-label="Close">${icon('x')}</button></div>
+    <form id="editForm" class="panel-body" style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><label for="edExpected">Expected kids on this date</label><input class="input" id="edExpected" type="number" min="0" max="200" value="${l.expected}" required></div>
+      <div class="field"><label for="edCapacity">Class capacity</label><input class="input" id="edCapacity" type="number" min="0" max="200" value="${l.capacity ?? ''}"></div>
+      <label class="check"><input type="checkbox" id="edVerified"${l.capacityVerified ? ' checked' : ''}><span>I checked this capacity in PIVVIT for this date<br><span class="hint">${h(capNote)}Changing the number also counts as checking it.</span></span></label>
+      <label class="check"><input type="checkbox" id="edCanceled"${l.canceled ? ' checked' : ''}><span>Class canceled or moved on this date</span></label>
+      <p class="hint" id="edError" role="alert"></p>
+      <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap">
+        ${l.manual ? '<button class="btn btn-ghost" type="button" data-act="reset-lesson">Reset to PIVVIT</button>' : '<span></span>'}
+        <div style="display:flex;gap:8px"><button class="btn" type="button" data-act="close-modal">Cancel</button><button class="btn btn-primary" type="submit">Save</button></div>
+      </div>
+      <p class="hint">Edits only change this plan in your browser, not PIVVIT.</p>
+    </form></div>`;
+  $('modal').hidden = false;
+  $('edExpected').focus();
+}
+function closeEditor() { $('modal').hidden = true; $('modal').innerHTML = ''; state.editing = null; }
+function saveEditor() {
+  const c = state.roster.classes.find(x => x.id === state.editing);
+  if (!c) return;
+  const expected = Number($('edExpected').value), raw = $('edCapacity').value.trim(), capacity = raw ? Number(raw) : null;
+  const err = msg => { $('edError').textContent = msg; $('edError').style.color = 'var(--danger)'; };
+  if (!Number.isInteger(expected) || expected < 0 || expected > 200) return err('Expected kids must be a whole number from 0 to 200.');
+  if (capacity !== null && (!Number.isInteger(capacity) || capacity < 0 || capacity > 200)) return err('Capacity must be a whole number from 0 to 200, or blank.');
+  if (capacity !== null && capacity < expected) return err('Capacity cannot be lower than the expected kids.');
+  const cur = lessonForDate(c, state.day);
+  const ov = { ...(c.overrides[state.day] || {}), expected, canceled: $('edCanceled').checked };
+  if (capacity !== (cur.capacity ?? null)) { ov.capacity = capacity; ov.capacityVerified = capacity !== null; }
+  else ov.capacityVerified = $('edVerified').checked;
+  c.overrides[state.day] = ov;
+  closeEditor(); render(); toast('Lesson updated for this plan.');
+}
+
+/* =========================================================================
+   Imports
+   ========================================================================= */
+async function importFiles(files) {
+  for (const f of files) {
+    if (/\.html?$/i.test(f.name)) await importRoster(f);
+    else if (/\.xlsx$/i.test(f.name)) await importShifts(f);
+    else toast(`${f.name} isn't a PIVVIT save (.html) or a schedule export (.xlsx).`, true);
+  }
+}
+async function importRoster(file) {
+  try {
+    if (file.size > 30 * 1024 * 1024) throw Error('This file is over 30 MB. Save only the roster page.');
+    const parsed = parseRoster(await file.text());
+    const prev = state.roster;
+    let diff = '';
+    if (prev) {
+      const byKey = new Map(prev.classes.map(c => [lessonKey(c), c]));
+      for (const c of parsed.classes) { const old = byKey.get(lessonKey(c)); if (old) c.overrides = old.overrides; }
+      const outAt = (cls, d) => cls.reduce((a, c) => a + (c.observations[d] ? c.observations[d].tally.flagged + c.observations[d].tally.excused : 0), 0);
+      const d = parsed.dates.includes(state.day) ? state.day : null;
+      if (d) { const delta = outAt(parsed.classes, d) - outAt(prev.classes, d); diff = delta > 0 ? ` ${plural(delta, 'new absence')} reported since your last save.` : delta < 0 ? ` ${plural(-delta, 'fewer absence', 'fewer absences')} than your last save.` : ' No new absences since your last save.'; }
+      state.pins = {};
+    }
+    state.roster = { ...parsed, fileName: file.name, savedAt: file.lastModified || Date.now() };
+    if (!parsed.dates.includes(state.day)) state.day = parsed.dates.includes(todayIso()) ? todayIso() : (parsed.dates.find(d => d >= todayIso()) || parsed.dates[parsed.dates.length - 1]);
+    state.highlight.clear();
+    render();
+    toast(prev ? 'Roster updated.' + diff : `Roster loaded: ${plural(parsed.classes.length, 'class', 'classes')} across ${plural(parsed.dates.length, 'date')}.`);
+  } catch (e) { toast('Could not read that roster. ' + e.message, true); }
+}
+async function importShifts(file) {
+  try {
+    if (file.size > 25e6) throw Error('This Excel file is over 25 MB.');
+    const parsed = await parseShiftWorkbook(await file.arrayBuffer(), new Date(file.lastModified || Date.now()));
+    state.shifts = { ...parsed, fileName: file.name };
+    render();
+    toast(`Shift times loaded: ${plural(parsed.count, 'swim instructor shift')} across ${plural(parsed.dates.length, 'day')}.`);
+  } catch (e) { toast('Could not read that schedule. ' + e.message, true); }
+}
+function chooseFiles(accept) { const inp = $('fileInput'); inp.accept = accept; inp.value = ''; inp.click(); }
+
+/* =========================================================================
+   Copy & print
+   ========================================================================= */
+function planText() {
+  const plan = state._plan;
+  if (!plan) return '';
+  const lines = [`Lesson coverage · ${dateTitle(state.day)}`, `Out: ${nameJoin([...state.out[state.day]])}`, ''];
+  for (const r of plan.results) {
+    const t = r.task, head = `${range(t.start, t.end)}  ${t.title} (${plural(t.expected, 'kid')})${state.out[state.day].size > 1 ? ' · ' + t.instructor : ''}`;
+    const what = r.status === 'sub' ? `${r.pick.name} substitutes` : r.status === 'merge' ? `Merge into ${r.pick.name}'s class` : r.status === 'review' ? `Merge into ${r.pick.name}'s class (check capacity)` : 'UNCOVERED';
+    lines.push(`${head}: ${what}`);
+  }
+  if (plan.zero.length) lines.push('', `No kids, nothing to move: ${plan.zero.map(l => clockShort(l.start) + ' ' + l.title).join(', ')}`);
+  lines.push('', 'Suggestions only. Confirm qualifications and capacities before changing anything in PIVVIT.');
+  return lines.join('\n');
+}
+async function copyPlan() {
+  const text = planText();
+  try { await navigator.clipboard.writeText(text); toast('Plan copied. Paste it into your group chat.'); }
+  catch {
+    const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand && document.execCommand('copy'); ta.remove();
+    toast(ok ? 'Plan copied.' : 'Copy failed. Use Print plan instead.', !ok);
+  }
+  state._lastCopied = text;
+}
+function printNow(planOnly) { document.body.classList.toggle('print-plan', !!planOnly); window.print(); setTimeout(() => document.body.classList.remove('print-plan'), 500); }
+
+/* =========================================================================
+   Toast
+   ========================================================================= */
+function toast(msg, bad = false) {
+  const t = $('toast');
+  t.textContent = msg; t.hidden = false; t.style.background = bad ? 'var(--danger)' : '';
+  clearTimeout(toast.timer); toast.timer = setTimeout(() => { t.hidden = true; }, bad ? 7000 : 4500);
+}
+
+/* =========================================================================
+   Events
+   ========================================================================= */
+function setDay(d) { if (!state.roster || !state.roster.dates.includes(d)) return; state.day = d; state.highlight.clear(); render(); }
+function toggleOut(name) {
+  const set = state.out[state.day] || (state.out[state.day] = new Set());
+  if (set.has(name)) set.delete(name); else set.add(name);
+  state.pins[state.day] = {};
+  render();
+  if (set.has(name)) document.querySelector('.plan-panel')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+}
+function siteEdit(name, patch) {
+  const model = state._model, w = windowsFor(model)[name];
+  const all = state.siteEdits[state.day] || (state.siteEdits[state.day] = {});
+  const iv = w && w.intervals.length ? [Math.min(...w.intervals.map(x => x[0])), Math.max(...w.intervals.map(x => x[1]))] : [540, 780];
+  all[name] = { here: w ? w.here : true, start: iv[0], end: iv[1], ...(all[name] || {}), ...patch };
+  render();
+  const d = document.querySelector('details.site'); if (d) d.open = true;
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('button, [data-act]');
+  if (!t) { document.querySelectorAll('details.menu[open]').forEach(d => d.removeAttribute('open')); return; }
+  if (!t.closest('details.menu')) document.querySelectorAll('details.menu[open]').forEach(d => d.removeAttribute('open'));
+  const act = t.dataset.act;
+  if (act === 'import-roster') return chooseFiles('.html,.htm,text/html');
+  if (act === 'import-shifts') return chooseFiles('.xlsx');
+  if (act === 'import-any') return chooseFiles('.html,.htm,.xlsx,text/html');
+  if (act === 'remove-shifts') { state.shifts = null; render(); return toast('Shift times removed.'); }
+  if (act === 'copy-plan') return copyPlan();
+  if (act === 'print-plan') return printNow(true);
+  if (act === 'print-board') return printNow(false);
+  if (act === 'clear-out') { state.out[state.day] = new Set(); state.pins[state.day] = {}; render(); return toast('Call-outs cleared for this date.'); }
+  if (act === 'close-modal') return closeEditor();
+  if (act === 'reset-lesson') { const c = state.roster.classes.find(x => x.id === state.editing); if (c) delete c.overrides[state.day]; closeEditor(); render(); return toast('Lesson reset to the PIVVIT values.'); }
+  if (t.dataset.day) { const i = state.roster.dates.indexOf(state.day) + +t.dataset.day; return setDay(state.roster.dates[i]); }
+  if (t.dataset.out) return toggleOut(t.dataset.out);
+  if (t.dataset.prefer) { state.prefer = t.dataset.prefer; savePrefs(); return render(); }
+  if (t.dataset.lesson) return openEditor(t.dataset.lesson);
+  if (t.dataset.siteReset) { delete (state.siteEdits[state.day] || {})[t.dataset.siteReset]; render(); const d = document.querySelector('details.site'); if (d) d.open = true; return; }
+  if (t.dataset.attn) {
+    const it = state._items[+t.dataset.attn];
+    if (!it) return;
+    if (it.action && it.action.type === 'out') return toggleOut(it.action.name);
+    if (it.action && it.action.type === 'verifyAll') { state.verifiedAll[state.day] = true; render(); return toast('Capacities marked as checked for this date.'); }
+    if (it.action && it.action.type === 'import') return chooseFiles('.xlsx');
+    state.highlight = new Set(it.ids || []);
+    render();
+    const first = document.querySelector('.lesson.hl'); if (first) first.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    clearTimeout(state._hlTimer);
+    state._hlTimer = setTimeout(() => { state.highlight.clear(); document.querySelectorAll('.lesson.hl').forEach(x => x.classList.remove('hl')); }, 6000);
+  }
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'fileInput') return importFiles([...t.files]);
+  if (t.id === 'dayPick') return setDay(t.value);
+  if (t.dataset.pick) {
+    const pins = state.pins[state.day] || (state.pins[state.day] = {});
+    if (t.value === 'auto') delete pins[t.dataset.pick]; else pins[t.dataset.pick] = t.value;
+    return render();
+  }
+  if (t.dataset.act === 'empty-free') { state.emptyFree = t.checked; savePrefs(); render(); const d = document.querySelector('details.site'); if (d) d.open = true; return; }
+  if (t.dataset.siteHere) return siteEdit(t.dataset.siteHere, { here: t.checked });
+  if (t.dataset.siteStart) { const v = fromTimeInput(t.value); if (v != null) siteEdit(t.dataset.siteStart, { start: v, here: true }); return; }
+  if (t.dataset.siteEnd) { const v = fromTimeInput(t.value); if (v != null) siteEdit(t.dataset.siteEnd, { end: v, here: true }); return; }
+});
+document.addEventListener('submit', e => { if (e.target.id === 'editForm') { e.preventDefault(); saveEditor(); } });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { if (!$('modal').hidden) closeEditor(); document.querySelectorAll('details.menu[open]').forEach(d => d.removeAttribute('open')); return; }
+  if (!state.roster || !$('modal').hidden || /^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement?.tagName || '')) return;
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    const i = state.roster.dates.indexOf(state.day) + (e.key === 'ArrowLeft' ? -1 : 1);
+    if (state.roster.dates[i]) setDay(state.roster.dates[i]);
+  }
+});
+$('modal').addEventListener('click', e => { if (e.target === $('modal')) closeEditor(); });
+let dragDepth = 0;
+window.addEventListener('dragenter', e => { if ([...(e.dataTransfer?.types || [])].includes('Files')) { dragDepth++; $('overlay').hidden = false; } });
+window.addEventListener('dragleave', () => { if (--dragDepth <= 0) { dragDepth = 0; $('overlay').hidden = true; } });
+window.addEventListener('dragover', e => e.preventDefault());
+window.addEventListener('drop', e => { e.preventDefault(); dragDepth = 0; $('overlay').hidden = true; if (e.dataTransfer?.files?.length) importFiles([...e.dataTransfer.files]); });
+
+render();
+
+// Hooks for the automated tests (tests/). Not used by the page itself.
+window.AquaticsCoverageTest = { parseRoster, iconStatus, excludesRegistration, parseShiftWorkbook, planCoverage, sameName, dailyLessons, dayModel, windowsFor, attentionItems, planText, state };
+})();
 </script>
 </body>
 </html>
